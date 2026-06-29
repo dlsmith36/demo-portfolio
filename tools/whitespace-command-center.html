@@ -1,0 +1,1517 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whitespace Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF7;
+  --panel: #FFFFFF;
+  --ink: #18181B;
+  --ink-2: #52525B;
+  --ink-3: #A1A1AA;
+  --ink-4: #D4D4D4;
+  --line: #E4E4E0;
+  --line-2: #EFEFEA;
+  --accent: #1B4965;
+  --accent-2: #143C52;
+  --accent-soft: #E7EEF2;
+
+  --status-whitespace-bg: #F5F4EE;
+  --status-whitespace-ink: #6B6A60;
+  --status-whitespace-bd: #DDD9CC;
+  --status-maintain-bg: #DCE7DA;
+  --status-maintain-ink: #2F4A36;
+  --status-maintain-bd: #B8CCB5;
+  --status-expand-bg: #C8DDE9;
+  --status-expand-ink: #1B4965;
+  --status-expand-bd: #9DBFD3;
+  --status-target-bg: #F1D9A8;
+  --status-target-ink: #6B4A0E;
+  --status-target-bd: #D9B873;
+  --status-na-bg: #F4F4F4;
+  --status-na-ink: #BFBFBF;
+
+  /* Strategic framework accents */
+  --frame-market: #B85C38;
+  --frame-market-soft: #FBEAE2;
+  --frame-portfolio: #1B4965;
+  --frame-portfolio-soft: #E7EEF2;
+  --frame-execution: #8A6315;
+  --frame-execution-soft: #FBF1DC;
+  --frame-sam: #2F7D45;
+  --frame-sam-soft: #E7F3EA;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Geist', -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
+}
+.mono { font-family: 'Geist Mono', monospace; font-feature-settings: 'tnum' 1; }
+.shell { max-width: 1440px; margin: 0 auto; padding: 28px 32px 80px; }
+
+/* ── Header ── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.header-left h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+}
+.eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3); margin-bottom: 8px; font-weight: 500; }
+.header-meta { color: var(--ink-2); font-size: 13px; }
+.live-dot { display: inline-block; width: 6px; height: 6px; background: #4FB477; border-radius: 50%; margin-right: 6px; vertical-align: 1px; box-shadow: 0 0 0 3px rgba(79, 180, 119, 0.18); }
+.header-right { display: flex; gap: 8px; align-items: center; }
+
+.btn {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn:hover { background: var(--line-2); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-2); }
+.btn-ghost { background: transparent; border-color: transparent; }
+.btn-ghost:hover { background: var(--line-2); }
+.btn .count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: white;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  height: 16px;
+  min-width: 16px;
+  padding: 0 5px;
+  border-radius: 8px;
+  margin-left: 2px;
+}
+
+/* ── KPI ── */
+.kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); font-weight: 500; margin-bottom: 6px; }
+.kpi .value { font-family: 'Geist Mono', monospace; font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
+.kpi .sub { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+.kpi .sub.up { color: #2F7D45; }
+
+/* ── Controls ── */
+.controls { display: flex; justify-content: space-between; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; }
+.controls-left { display: flex; align-items: center; gap: 16px; }
+.search { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 7px 12px; width: 240px; }
+.search svg { color: var(--ink-3); flex-shrink: 0; }
+.search input { border: none; outline: none; background: transparent; font-family: inherit; font-size: 13px; color: var(--ink); width: 100%; }
+.tab-group { display: inline-flex; background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 3px; gap: 2px; }
+.tab { padding: 5px 12px; font-size: 12.5px; font-weight: 500; color: var(--ink-2); border-radius: 5px; cursor: pointer; transition: all 0.15s ease; }
+.tab:hover { color: var(--ink); }
+.tab.active { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.controls-right { display: flex; align-items: center; gap: 14px; }
+.sort-label { font-size: 12px; color: var(--ink-2); }
+.dropdown { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); font-size: 13px; font-weight: 500; cursor: pointer; }
+.dropdown svg { color: var(--ink-3); }
+
+/* ── Legend ── */
+.legend { display: flex; gap: 22px; padding: 12px 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 18px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 7px; }
+.swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.sw-ws { background: var(--status-whitespace-bg); border: 1px solid var(--status-whitespace-bd); }
+.sw-maint { background: var(--status-maintain-bg); border: 1px solid var(--status-maintain-bd); }
+.sw-exp { background: var(--status-expand-bg); border: 1px solid var(--status-expand-bd); }
+.sw-target { background: var(--status-target-bg); border: 1px solid var(--status-target-bd); }
+.sw-na { background: var(--status-na-bg); border: 1px dashed var(--status-na-ink); }
+
+/* ── Section / Matrix ── */
+.section { margin-bottom: 28px; }
+.section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+.section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.section-meta { font-size: 12px; color: var(--ink-3); }
+
+.matrix { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.matrix table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.matrix thead th { text-align: left; font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); padding: 12px 10px; border-bottom: 1px solid var(--line); background: #FCFCFA; white-space: nowrap; }
+.matrix thead th:first-child { padding-left: 18px; }
+.matrix thead th.product-col { text-align: center; width: 96px; }
+.matrix tbody td { padding: 11px 10px; border-bottom: 1px solid var(--line-2); vertical-align: middle; }
+.matrix tbody td:first-child { padding-left: 18px; }
+.matrix tbody tr:last-child td { border-bottom: none; }
+.matrix tbody tr.excluded { opacity: 0.4; }
+.matrix tbody tr.excluded td { font-style: italic; }
+
+.oem-cell { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.oem-cell:hover .oem-name { color: var(--accent); }
+.oem-logo { width: 28px; height: 28px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.oem-name { font-weight: 500; transition: color 0.15s; }
+.oem-sub { font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+
+.cell-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 78px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  position: relative;
+}
+.cell-status:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+.s-ws    { background: var(--status-whitespace-bg); color: var(--status-whitespace-ink); border-color: var(--status-whitespace-bd); }
+.s-maint { background: var(--status-maintain-bg); color: var(--status-maintain-ink); border-color: var(--status-maintain-bd); }
+.s-exp   { background: var(--status-expand-bg); color: var(--status-expand-ink); border-color: var(--status-expand-bd); }
+.s-target { background: var(--status-target-bg); color: var(--status-target-ink); border-color: var(--status-target-bd); }
+.s-na    { background: var(--status-na-bg); color: var(--status-na-ink); border: 1px dashed var(--status-na-ink); cursor: default; }
+.s-na:hover { transform: none; box-shadow: none; }
+
+/* SAM activity indicator on cells */
+.cell-status .play-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: var(--frame-sam);
+  border-radius: 50%;
+  margin-left: 1px;
+}
+.cell-status .alert-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: var(--frame-market);
+  border-radius: 50%;
+  margin-left: 1px;
+}
+
+td.center { text-align: center; }
+.dealer-count, .acv { font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+.acv-sub { font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+
+/* ── Drawer (OEM deep-dive) ── */
+.drawer {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.drawer::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+}
+.drawer-header { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px 0; }
+.drawer-title { font-size: 16px; font-weight: 600; }
+.drawer-title .tag { font-size: 10px; background: var(--accent-soft); color: var(--accent); padding: 3px 7px; border-radius: 4px; margin-left: 8px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; vertical-align: 2px; }
+.drawer-close { color: var(--ink-3); cursor: pointer; font-size: 18px; padding: 4px 8px; border-radius: 4px; }
+.drawer-close:hover { background: var(--line-2); color: var(--ink); }
+
+.drawer-intro { padding: 8px 24px 16px; font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+.drawer-intro .pill { display: inline-block; background: var(--bg); border: 1px solid var(--line); padding: 2px 8px; border-radius: 4px; font-family: 'Geist Mono', monospace; font-size: 11px; margin: 0 2px; }
+
+/* Drawer tabs */
+.drawer-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  padding: 0 24px;
+  gap: 4px;
+}
+.drawer-tab {
+  padding: 12px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.drawer-tab:hover { color: var(--ink); }
+.drawer-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+.drawer-tab .tab-icon { width: 8px; height: 8px; border-radius: 50%; }
+.drawer-tab[data-frame="market"] .tab-icon { background: var(--frame-market); }
+.drawer-tab[data-frame="portfolio"] .tab-icon { background: var(--frame-portfolio); }
+.drawer-tab[data-frame="execution"] .tab-icon { background: var(--frame-execution); }
+.drawer-tab[data-frame="sam"] .tab-icon { background: var(--frame-sam); }
+.drawer-tab[data-frame="crm"] .tab-icon { background: var(--accent); }
+
+.drawer-tab-content { padding: 22px 24px 26px; }
+.drawer-tab-pane { display: none; }
+.drawer-tab-pane.active { display: block; }
+
+/* CRM opportunities table */
+.opp-table { width: 100%; border-collapse: collapse; }
+.opp-table th, .opp-table td { padding: 9px 12px; text-align: left; font-size: 12.5px; border-bottom: 1px solid var(--line-2); }
+.opp-table th { font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); background: #FCFCFA; }
+.flag { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 3px; background: var(--bg); border: 1px solid var(--line); color: var(--ink-2); font-weight: 500; }
+.flag.renewal { background: #EDF6F0; border-color: #C6E0CE; color: #2F7D45; }
+.flag.pass { background: #FFF6E5; border-color: #F2D89C; color: #8A6315; }
+
+/* Strategic framework cards */
+.framework-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.frame-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  background: var(--bg);
+  position: relative;
+}
+.frame-card.market { border-left: 3px solid var(--frame-market); background: var(--frame-market-soft); }
+.frame-card.portfolio { border-left: 3px solid var(--frame-portfolio); background: var(--frame-portfolio-soft); }
+.frame-card.execution { border-left: 3px solid var(--frame-execution); background: var(--frame-execution-soft); }
+.frame-card.sam { border-left: 3px solid var(--frame-sam); background: var(--frame-sam-soft); }
+.frame-card h4 {
+  margin: 0 0 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--ink);
+}
+.frame-card .item { margin-bottom: 12px; }
+.frame-card .item:last-child { margin-bottom: 0; }
+.frame-card .item-label { font-size: 11px; color: var(--ink-3); font-weight: 500; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+.frame-card .item-value { font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+.frame-card .stat { font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600; color: var(--ink); }
+.frame-card .stat-small { font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+
+/* Share of wallet bar */
+.sow-bar { display: flex; height: 22px; border-radius: 4px; overflow: hidden; margin-top: 6px; border: 1px solid var(--line); }
+.sow-seg { display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 600; color: white; }
+.sow-AutoSync { background: var(--accent); }
+.sow-comp1 { background: #B85C38; }
+.sow-comp2 { background: #8A6315; }
+.sow-ws { background: #D4D4D4; color: var(--ink); }
+.sow-legend { display: flex; gap: 12px; margin-top: 8px; font-size: 11px; color: var(--ink-2); flex-wrap: wrap; }
+.sow-legend-item { display: flex; align-items: center; gap: 5px; }
+.sow-legend-item .dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* Product coverage grid */
+.coverage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 6px; }
+.cov-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border-radius: 5px;
+  font-size: 10px;
+  text-align: center;
+  border: 1px solid var(--line);
+  background: white;
+}
+.cov-tile.owned { background: #EDF6F0; border-color: #C6E0CE; color: #2F7D45; }
+.cov-tile.missing { background: #FBEAE2; border-color: #ECC9B8; color: #B85C38; }
+.cov-tile .check { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.cov-tile .name { font-weight: 500; }
+
+/* SAM activity timeline */
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+.timeline-item { position: relative; padding-bottom: 14px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -17px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--frame-sam);
+}
+.timeline-item.recent::before { background: var(--frame-sam); }
+.timeline-item .date { font-size: 11px; color: var(--ink-3); font-family: 'Geist Mono', monospace; }
+.timeline-item .event { font-size: 12.5px; color: var(--ink); margin-top: 2px; }
+.timeline-item .event strong { color: var(--ink); font-weight: 600; }
+
+/* Score bars */
+.score-bar { display: flex; align-items: center; gap: 10px; }
+.score-track { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 3px; }
+.score-fill.high { background: #2F7D45; }
+.score-fill.mid { background: #B8862B; }
+.score-fill.low { background: #B85C38; }
+.score-label { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; color: var(--ink); min-width: 24px; text-align: right; }
+
+/* Strategic prompt for white space cells */
+.sam-prompt {
+  background: var(--frame-sam-soft);
+  border: 1px solid #C6E0CE;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.sam-prompt .icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--frame-sam);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.sam-prompt .body { font-size: 12.5px; color: var(--ink); }
+.sam-prompt .body strong { font-weight: 600; }
+.sam-prompt .body .ask { color: var(--frame-sam); font-weight: 600; }
+
+/* Footnote */
+.footnote { margin-top: 32px; padding: 16px 20px; background: var(--accent-soft); border: 1px solid #BFD4E0; border-radius: 10px; font-size: 12.5px; color: var(--accent-2); line-height: 1.55; }
+.footnote strong { color: var(--accent); }
+
+/* ── Modal (cell update) ── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 24, 27, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: 520px;
+  max-width: 92vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.modal-header { padding: 20px 22px 0; }
+.modal-header .eyebrow { margin-bottom: 4px; }
+.modal-header h3 { margin: 0 0 4px; font-size: 18px; font-weight: 600; }
+.modal-header .sub { font-size: 12px; color: var(--ink-2); }
+.modal-body { padding: 18px 22px 4px; }
+.modal-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); font-weight: 600; margin: 16px 0 8px; }
+.modal-label:first-child { margin-top: 0; }
+.status-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.status-option {
+  padding: 10px 12px;
+  border-radius: 7px;
+  border: 1.5px solid var(--line);
+  cursor: pointer;
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s;
+  background: white;
+}
+.status-option:hover { border-color: var(--ink-3); }
+.status-option.selected { border-color: var(--accent); background: var(--accent-soft); }
+.status-option .swatch { width: 12px; height: 12px; border-radius: 3px; }
+.modal-input {
+  width: 100%;
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  outline: none;
+  resize: vertical;
+}
+.modal-input:focus { border-color: var(--accent); }
+.modal-footer { padding: 14px 22px 20px; display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid var(--line-2); margin-top: 14px; }
+
+/* ── Audit log panel ── */
+.audit-panel {
+  position: fixed;
+  top: 0;
+  right: -440px;
+  width: 420px;
+  height: 100vh;
+  background: white;
+  border-left: 1px solid var(--line);
+  box-shadow: -8px 0 30px rgba(0,0,0,0.08);
+  transition: right 0.3s ease;
+  z-index: 90;
+  overflow-y: auto;
+}
+.audit-panel.open { right: 0; }
+.audit-header { padding: 20px 22px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: white; z-index: 1; }
+.audit-header h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+.audit-header .sub { font-size: 12px; color: var(--ink-2); }
+.audit-header .close { position: absolute; top: 18px; right: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; color: var(--ink-3); }
+.audit-header .close:hover { background: var(--line-2); color: var(--ink); }
+.audit-list { padding: 4px 0; }
+.audit-entry { padding: 14px 22px; border-bottom: 1px solid var(--line-2); }
+.audit-entry:last-child { border-bottom: none; }
+.audit-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.audit-actor { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.audit-actor.system { color: var(--accent); }
+.audit-time { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--ink-3); }
+.audit-body { font-size: 12.5px; color: var(--ink); line-height: 1.5; margin-bottom: 6px; }
+.audit-body .change { font-family: 'Geist Mono', monospace; font-size: 11px; padding: 1px 5px; border-radius: 3px; background: var(--bg); border: 1px solid var(--line); }
+.audit-reason { font-size: 12px; color: var(--ink-2); font-style: italic; }
+
+/* ── Tour overlay ── */
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  display: none;
+}
+.tour-overlay.active { display: block; }
+.tour-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 24, 27, 0.55);
+  transition: clip-path 0.3s ease;
+  pointer-events: auto;
+}
+.tour-highlight {
+  position: fixed;
+  border: 2px solid #4FB477;
+  border-radius: 10px;
+  pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(24, 24, 27, 0.55), 0 0 30px rgba(79, 180, 119, 0.4);
+  transition: all 0.3s ease;
+  z-index: 201;
+}
+.tour-tooltip {
+  position: fixed;
+  background: white;
+  border-radius: 10px;
+  padding: 18px 20px;
+  width: 360px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  z-index: 202;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+.tour-step-label { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--accent); font-weight: 600; letter-spacing: 0.05em; }
+.tour-title { font-size: 16px; font-weight: 600; margin: 4px 0 8px; color: var(--ink); }
+.tour-body { font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-bottom: 14px; }
+.tour-body strong { color: var(--ink); }
+.tour-body .def-item { padding: 6px 0; border-top: 1px solid var(--line-2); }
+.tour-body .def-item:first-of-type { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 8px; }
+.tour-body .def-item .def-label { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-right: 6px; vertical-align: 1px; }
+.tour-controls { display: flex; justify-content: space-between; align-items: center; }
+.tour-progress { display: flex; gap: 4px; }
+.tour-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }
+.tour-dot.active { background: var(--accent); }
+.tour-dot.done { background: var(--accent); opacity: 0.5; }
+.tour-buttons { display: flex; gap: 6px; }
+.tour-btn { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--line); background: white; }
+.tour-btn:hover { background: var(--line-2); }
+.tour-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+.tour-btn.primary:hover { background: var(--accent-2); }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  background: var(--ink);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 300;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast .check { color: #4FB477; font-weight: 600; }
+
+@media print {
+  body { background: white; }
+  .header-right, .controls-right, .tour-overlay, .audit-panel, .modal-backdrop { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <div class="header" data-tour="header">
+    <div class="header-left">
+      <div class="eyebrow">AutoSync Commercial Operations · ENT</div>
+      <h1>Whitespace Report</h1>
+      <div class="header-meta">
+        <span class="live-dot"></span>
+        Synced from CRM · <span id="opp-count">74</span> open opportunities · Last refresh <span class="mono">2h ago</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-ghost" onclick="startTour()" data-tour="tour-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Guided Tour
+      </button>
+      <button class="btn" onclick="toggleAudit()" data-tour="audit-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Activity Log <span class="count" id="audit-count">3</span>
+      </button>
+      <button class="btn">Export PDF</button>
+      <button class="btn btn-primary">Refresh from CRM ↻</button>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-strip" data-tour="kpi">
+    <div class="kpi">
+      <div class="label">OEMs Tracked</div>
+      <div class="value">38</div>
+      <div class="sub">2 excluded · 41 in CRM</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Whitespace Cells</div>
+      <div class="value" id="kpi-ws">147</div>
+      <div class="sub"><span id="kpi-ws-sam">89</span> without SAM play · <strong style="color:#B85C38;">action needed</strong></div>
+    </div>
+    <div class="kpi">
+      <div class="label">Target ACV in Pipeline</div>
+      <div class="value">$4.2M</div>
+      <div class="sub up">↑ $620k vs Q1</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Share of Wallet (avg)</div>
+      <div class="value">7.4%</div>
+      <div class="sub">Reynolds: 38% · CDK: 22%</div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls" data-tour="controls">
+    <div class="controls-left">
+      <div class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Search OEM, NAM, or product…" />
+      </div>
+      <div class="tab-group">
+        <div class="tab active">United States</div>
+        <div class="tab">Canada</div>
+        <div class="tab">International</div>
+      </div>
+    </div>
+    <div class="controls-right">
+      <span class="sort-label">Sort by:</span>
+      <div class="dropdown">
+        Dealer count (high → low)
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend" data-tour="legend">
+    <div class="legend-item"><span class="swatch sw-ws"></span> White Space</div>
+    <div class="legend-item"><span class="swatch sw-maint"></span> Maintain</div>
+    <div class="legend-item"><span class="swatch sw-exp"></span> Expand</div>
+    <div class="legend-item"><span class="swatch sw-target"></span> Target</div>
+    <div class="legend-item"><span class="swatch sw-na"></span> Not Applicable</div>
+    <div class="legend-item" style="margin-left:auto;"><span class="dot" style="width:6px;height:6px;background:var(--frame-sam);border-radius:50%;"></span> SAM play in motion</div>
+    <div class="legend-item"><span class="dot" style="width:6px;height:6px;background:var(--frame-market);border-radius:50%;"></span> No SAM activity logged</div>
+  </div>
+
+  <!-- US MATRIX -->
+  <div class="section" data-tour="matrix">
+    <div class="section-header">
+      <div class="section-title">━ United States ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+      <div class="section-meta">22 OEMs · ranked by dealer count</div>
+    </div>
+    <div class="matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>OEM</th>
+            <th class="center">Dealers</th>
+            <th class="center">ACV</th>
+            <th class="product-col">CL/Trax PMA</th>
+            <th class="product-col">Mech PMA</th>
+            <th class="product-col">BI / PSX</th>
+            <th class="product-col">Audit</th>
+            <th class="product-col">CRN</th>
+            <th class="product-col">D2D</th>
+            <th class="product-col">EPC Link</th>
+          </tr>
+        </thead>
+        <tbody id="us-tbody">
+          <!-- Rows generated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DRAWER (deep-dive) -->
+  <div class="drawer" id="drawer" data-tour="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        Honda <span class="tag">CRM-Linked · Strategic Deep-Dive</span>
+      </div>
+      <div class="drawer-close" onclick="document.getElementById('drawer').style.display='none';">✕</div>
+    </div>
+    <div class="drawer-intro">
+      1,317 US dealers · <span class="pill">$90k ACV captured</span> · <span class="pill">3.2% share of wallet</span> · NAM: Townsend ·
+      <strong style="color:var(--frame-market);">High-whitespace candidate</strong> — large dealer footprint, low capture rate, no exec relationship.
+    </div>
+
+    <div class="drawer-tabs">
+      <div class="drawer-tab active" data-frame="crm" onclick="switchTab(this, 'tab-crm')"><span class="tab-icon"></span> CRM Opportunities</div>
+      <div class="drawer-tab" data-frame="sam" onclick="switchTab(this, 'tab-sam')"><span class="tab-icon"></span> SAM Activity</div>
+      <div class="drawer-tab" data-frame="market" onclick="switchTab(this, 'tab-market')"><span class="tab-icon"></span> Market & Competitor</div>
+      <div class="drawer-tab" data-frame="portfolio" onclick="switchTab(this, 'tab-portfolio')"><span class="tab-icon"></span> Portfolio & Revenue</div>
+      <div class="drawer-tab" data-frame="execution" onclick="switchTab(this, 'tab-execution')"><span class="tab-icon"></span> Execution & Viability</div>
+    </div>
+
+    <div class="drawer-tab-content">
+      <!-- TAB: CRM -->
+      <div class="drawer-tab-pane active" id="tab-crm">
+        <div style="font-size:12.5px;color:var(--ink-2);margin-bottom:14px;">
+          This OEM has <span class="pill mono">3 opportunities</span> in CRM totaling <span class="pill mono">$148,500 net new</span>. Each cell on the matrix is tied back to opportunity records below.
+        </div>
+        <table class="opp-table">
+          <thead>
+            <tr><th>Opportunity</th><th>Stage</th><th>TCV</th><th>ACV</th><th>Net New</th><th>Term</th><th>Flags</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Honda — Mech PMA East Region Rollout</td>
+              <td>Stage 3 · Proposal</td>
+              <td class="mono">$252,000</td>
+              <td class="mono">$84,000</td>
+              <td class="mono">$84,000</td>
+              <td>36 mo</td>
+              <td><span class="flag">Direct OEM</span></td>
+            </tr>
+            <tr>
+              <td>Honda — Mech PMA Pilot (West 50)</td>
+              <td>Stage 2 · Discovery</td>
+              <td class="mono">$45,000</td>
+              <td class="mono">$45,000</td>
+              <td class="mono">$45,000</td>
+              <td>12 mo</td>
+              <td><span class="flag pass">Pass-through</span></td>
+            </tr>
+            <tr>
+              <td>Honda — Service Bay Renewal</td>
+              <td>Stage 4 · Negotiation</td>
+              <td class="mono">$57,000</td>
+              <td class="mono">$19,500</td>
+              <td class="mono">$19,500</td>
+              <td>36 mo</td>
+              <td><span class="flag renewal">Renewal · $0 net new</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: SAM Activity -->
+      <div class="drawer-tab-pane" id="tab-sam">
+        <div class="framework-grid" style="grid-template-columns: 1fr 1.4fr;">
+          <div class="frame-card sam">
+            <h4>Account Plan · Owner</h4>
+            <div class="item">
+              <div class="item-label">National Account Manager</div>
+              <div class="item-value"><strong>David Townsend</strong> · 78% to quota · 12-month tenure on Honda</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Plan Last Reviewed</div>
+              <div class="item-value"><span class="stat-small">Apr 22, 2026</span> · with Steve Churney</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Next Action Owner</div>
+              <div class="item-value">Townsend → present pilot results to Honda HQ · <strong>May 28</strong></div>
+            </div>
+            <div class="item">
+              <div class="item-label">Whitespace Cells with Play in Motion</div>
+              <div class="stat" style="color:var(--frame-sam);">2 of 5</div>
+              <div class="item-value" style="font-size:11.5px;color:var(--ink-3);">3 white-space cells have no documented action — see "Cells Needing a Play" below.</div>
+            </div>
+          </div>
+
+          <div class="frame-card sam">
+            <h4>Recent Activity Timeline</h4>
+            <div class="timeline">
+              <div class="timeline-item recent">
+                <div class="date">May 22, 2026</div>
+                <div class="event"><strong>Townsend</strong> · Logged exec meeting with Honda parts ops VP. Discussed PMA East pilot results.</div>
+              </div>
+              <div class="timeline-item recent">
+                <div class="date">May 14, 2026</div>
+                <div class="event"><strong>Townsend</strong> · Submitted Mech PMA Pilot West 50 proposal (Opp HMP-2241).</div>
+              </div>
+              <div class="timeline-item">
+                <div class="date">Apr 22, 2026</div>
+                <div class="event"><strong>Steve Churney</strong> · Q1 account plan review. Flagged Audit + CRN bundle as Q3 push.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="date">Mar 14, 2026</div>
+                <div class="event"><strong>Townsend</strong> · Initial discovery call with Honda Service Operations.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sam-prompt">
+          <div class="icon">!</div>
+          <div class="body">
+            <strong>3 whitespace cells without a documented SAM play:</strong>
+            BI / PSX, CRN, EPC Link. <span class="ask">For each: what is Townsend doing in the account to win that business?</span>
+            Account plan does not currently capture next-action commitments for these — recommend Steve and Townsend lock in plays at next 1:1.
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Market & Competitor -->
+      <div class="drawer-tab-pane" id="tab-market">
+        <div class="framework-grid">
+          <div class="frame-card market">
+            <h4>Unmet Needs</h4>
+            <div class="item">
+              <div class="item-label">Source: NADA Q1 2026 Dealer Survey</div>
+              <div class="item-value">Honda dealers rate parts-catalog discovery friction at <strong>3.2 / 10</strong> — lowest of major OEMs. Specific callout: VIN-to-part lookup speed on legacy systems.</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Source: Dealer 360 Reviews</div>
+              <div class="item-value">"Audit" and "Coaching" categories show <strong>11 negative mentions</strong> in last 90 days re: lack of standardized service-counter workflow.</div>
+            </div>
+          </div>
+
+          <div class="frame-card market">
+            <h4>Competitor Blind Spots</h4>
+            <div class="item">
+              <div class="item-label">Reynolds & Reynolds focus</div>
+              <div class="item-value">Skews to franchise dealers <strong>>$5M revenue</strong>. Honda has <strong>~340 sub-$3M dealers</strong> consistently underserved by R&R sales motion.</div>
+            </div>
+            <div class="item">
+              <div class="item-label">CDK weakness</div>
+              <div class="item-value">No pass-through OEM sponsorship motion. AutoSync's direct-OEM model is a structural advantage with Honda corporate.</div>
+            </div>
+          </div>
+
+          <div class="frame-card market">
+            <h4>Market Saturation Map</h4>
+            <div class="item">
+              <div class="item-label">Honda Dealer Density vs Competitor Coverage</div>
+              <div class="item-value">Western US corridor (CA, OR, WA, AZ): <strong>28% lower competitor density</strong> than national avg. Highest concentration of underserved Honda dealers.</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Geographic "Deserts"</div>
+              <div class="item-value">Mountain region (CO, NM, UT) — <strong>71 Honda dealers</strong>, only 4 AutoSync enrollments. Effective whitespace.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Portfolio & Revenue -->
+      <div class="drawer-tab-pane" id="tab-portfolio">
+        <div class="framework-grid">
+          <div class="frame-card portfolio">
+            <h4>Account Mining</h4>
+            <div class="item">
+              <div class="item-label">Dealer Coverage</div>
+              <div class="stat">287 / 1,317</div>
+              <div class="item-value">22% of Honda dealers use 0 AutoSync products. <strong>1,030 dealers</strong> are pure cross-sell territory.</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Best Entry Point</div>
+              <div class="item-value"><strong>CRN</strong> — proven Honda fit, $43 avg / dealer / yr, low-friction. Use as wedge for Mech PMA upsell.</div>
+            </div>
+          </div>
+
+          <div class="frame-card portfolio">
+            <h4>Product Coverage Gap</h4>
+            <div class="item">
+              <div class="item-label">7 product families · 2 currently sold to Honda</div>
+              <div class="coverage-grid">
+                <div class="cov-tile owned"><div class="check">✓</div><div class="name">CL/Trax</div></div>
+                <div class="cov-tile missing"><div class="check">✗</div><div class="name">Mech PMA</div></div>
+                <div class="cov-tile missing"><div class="check">✗</div><div class="name">BI/PSX</div></div>
+                <div class="cov-tile missing"><div class="check">✗</div><div class="name">Audit</div></div>
+                <div class="cov-tile missing"><div class="check">✗</div><div class="name">CRN</div></div>
+                <div class="cov-tile owned"><div class="check">✓</div><div class="name">D2D</div></div>
+                <div class="cov-tile missing"><div class="check">✗</div><div class="name">EPC Link</div></div>
+                <div class="cov-tile missing"><div class="check">✗</div><div class="name">Repair Data</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="frame-card portfolio">
+            <h4>Share of Wallet</h4>
+            <div class="item">
+              <div class="item-label">Honda Parts-Data Spend Capture</div>
+              <div class="sow-bar">
+                <div class="sow-seg sow-AutoSync" style="width:3.2%;">3%</div>
+                <div class="sow-seg sow-comp1" style="width:41%;">Reynolds 41%</div>
+                <div class="sow-seg sow-comp2" style="width:28%;">CDK 28%</div>
+                <div class="sow-seg sow-ws" style="width:27.8%;">Whitespace 27.8%</div>
+              </div>
+              <div class="sow-legend">
+                <div class="sow-legend-item"><span class="dot" style="background:var(--accent);"></span> AutoSync</div>
+                <div class="sow-legend-item"><span class="dot" style="background:#B85C38;"></span> Reynolds</div>
+                <div class="sow-legend-item"><span class="dot" style="background:#8A6315;"></span> CDK</div>
+                <div class="sow-legend-item"><span class="dot" style="background:#D4D4D4;"></span> Unallocated</div>
+              </div>
+            </div>
+            <div class="item" style="margin-top:14px;">
+              <div class="item-label">Addressable Headroom</div>
+              <div class="stat-small" style="color:var(--frame-portfolio);">~$2.1M ACV unallocated · 12mo addressable: $620k</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Execution & Viability -->
+      <div class="drawer-tab-pane" id="tab-execution">
+        <div class="framework-grid">
+          <div class="frame-card execution">
+            <h4>Brand Alignment</h4>
+            <div class="item">
+              <div class="item-label">Core Competency Match</div>
+              <div class="score-bar">
+                <div class="score-track"><div class="score-fill high" style="width:80%;"></div></div>
+                <div class="score-label">8 / 10</div>
+              </div>
+              <div class="item-value" style="margin-top:6px;">Mech PMA Ford / GM playbook translates directly. Service ops audience is identical.</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Mission Fit</div>
+              <div class="item-value">High. Honda's parts division priorities (catalog accuracy, dealer compliance) align with AutoSync's reason for being.</div>
+            </div>
+          </div>
+
+          <div class="frame-card execution">
+            <h4>Barriers to Entry</h4>
+            <div class="item">
+              <div class="item-label">Resource Readiness</div>
+              <div class="score-bar">
+                <div class="score-track"><div class="score-fill mid" style="width:55%;"></div></div>
+                <div class="score-label">5.5 / 10</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="item-label">Key Barriers</div>
+              <div class="item-value">
+                · Honda corporate gatekeeper for OEM sponsorship<br>
+                · Estimated <strong>6–9 month</strong> sales cycle<br>
+                · No existing exec relationship above VP Parts level<br>
+                · Mech PMA requires custom data feed from Honda's parts master
+              </div>
+            </div>
+          </div>
+
+          <div class="frame-card execution">
+            <h4>Team Readiness</h4>
+            <div class="item">
+              <div class="item-label">NAM Bandwidth</div>
+              <div class="score-bar">
+                <div class="score-track"><div class="score-fill low" style="width:35%;"></div></div>
+                <div class="score-label">3.5 / 10</div>
+              </div>
+              <div class="item-value" style="margin-top:6px;">Townsend at 78% quota with 4 other OEMs. Limited bandwidth for Honda push.</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Recommendation</div>
+              <div class="item-value">Dedicated <strong>Honda push team</strong> for FY26 H2 (NAM + product specialist + exec sponsor). Carve out from current ENT capacity.</div>
+            </div>
+            <div class="item">
+              <div class="item-label">Incentive Alignment</div>
+              <div class="item-value">Current comp plan rewards short-cycle wins; Honda needs long-cycle patience. <strong>Plan adjustment needed.</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANADA MATRIX (smaller) -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">━ Canada ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+      <div class="section-meta">12 OEMs · ranked by dealer count</div>
+    </div>
+    <div class="matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>OEM</th>
+            <th class="center">Dealers</th>
+            <th class="center">ACV</th>
+            <th class="product-col">CL PMA</th>
+            <th class="product-col">RL PMA</th>
+            <th class="product-col">BI / PSX</th>
+            <th class="product-col">CRN</th>
+            <th class="product-col">D2D</th>
+            <th class="product-col">Parts Eye</th>
+            <th class="product-col">EPC Link</th>
+          </tr>
+        </thead>
+        <tbody id="ca-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <strong>Concept mockup — interactive prototype.</strong> Click any status cell to update it. Click an OEM name to open the strategic deep-dive. All values are illustrative; status logic, ACV figures, share-of-wallet, and SAM activity examples are placeholders meant to demonstrate the design system and the strategic frameworks Steve and Matt should be able to interrogate. Final build will source these from CRM, NADA data, dealer surveys, and account-plan systems of record.
+  </div>
+
+</div>
+
+<!-- ─────────── MODAL: Cell Update ─────────── -->
+<div class="modal-backdrop" id="cell-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="eyebrow">Update Status</div>
+      <h3 id="modal-title">Honda · Mech PMA</h3>
+      <div class="sub" id="modal-sub">Currently: White Space · Last changed: never</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-label">New Status</div>
+      <div class="status-options" id="status-options"></div>
+
+      <div class="modal-label">Reason for change <span style="color:var(--frame-market);">*</span></div>
+      <textarea class="modal-input" id="reason-input" rows="2" placeholder="e.g., New OEM sponsorship discussion in motion per Townsend Q1 review"></textarea>
+
+      <div class="modal-label">SAM action / next play <span style="color:var(--frame-market);">*</span></div>
+      <textarea class="modal-input" id="action-input" rows="2" placeholder="What is the SAM doing in this account to win this business?"></textarea>
+
+      <div style="background:var(--frame-sam-soft);border:1px solid #C6E0CE;border-radius:6px;padding:10px 12px;margin-top:14px;font-size:12px;color:var(--frame-sam);">
+        <strong>Why this is required:</strong> If a cell shows whitespace and there's no documented SAM action, leadership has no answer to "what are we doing about this?" — the question Steve and Matt will always ask.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCell()">Save & Log</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── AUDIT LOG ─────────── -->
+<div class="audit-panel" id="audit-panel">
+  <div class="audit-header">
+    <h3>Activity Log</h3>
+    <div class="sub">All status changes · CRM auto-updates · manual overrides</div>
+    <div class="close" onclick="toggleAudit()">✕</div>
+  </div>
+  <div class="audit-list" id="audit-list"></div>
+</div>
+
+<!-- ─────────── TOUR OVERLAY ─────────── -->
+<div class="tour-overlay" id="tour-overlay">
+  <div class="tour-highlight" id="tour-highlight"></div>
+  <div class="tour-tooltip" id="tour-tooltip">
+    <div class="tour-step-label" id="tour-step-label">STEP 1 of 10</div>
+    <div class="tour-title" id="tour-title"></div>
+    <div class="tour-body" id="tour-body"></div>
+    <div class="tour-controls">
+      <div class="tour-progress" id="tour-progress"></div>
+      <div class="tour-buttons">
+        <button class="tour-btn" onclick="endTour()">Skip</button>
+        <button class="tour-btn" id="tour-prev" onclick="prevStep()">Back</button>
+        <button class="tour-btn primary" id="tour-next" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── TOAST ─────────── -->
+<div class="toast" id="toast">
+  <span class="check">✓</span>
+  <span id="toast-msg">Saved</span>
+</div>
+
+<script>
+/* ───────── DATA ───────── */
+const STATUSES = [
+  { key: 'whitespace', label: 'White Space', cls: 's-ws',     def: 'No opportunity logged in CRM. Account does not currently own the product.' },
+  { key: 'maintain',   label: 'Maintain',   cls: 's-maint',   def: 'Under contract. No active growth motion. Account-management discipline only.' },
+  { key: 'expand',     label: 'Expand',     cls: 's-exp',     def: 'Existing customer with active upsell or land-and-expand motion in motion.' },
+  { key: 'target',     label: 'Target',     cls: 's-target',  def: 'Active pursuit. Opportunity in CRM, stage 2 or later. Time-bound action plan.' },
+  { key: 'na',         label: 'Not Applicable', cls: 's-na', def: 'Product cannot be sold in this account (e.g., GM Mexico / parts accelerator). Excluded from whitespace math.' }
+];
+
+// US OEM data: [name, initial, NAM, dealers, acv, acvSub, statuses, hasSAMPlay]
+// statuses array: 7 cells in order: CL/Trax PMA, Mech PMA, BI/PSX, Audit, CRN, D2D, EPC Link
+// hasSAMPlay array: parallel, true/false whether a play is documented
+const US_OEMS = [
+  ['Ford',          'F', 'Purgert',  4143, '$1.24M', '+$120k pass-through', ['maintain','expand','target','maintain','maintain','maintain','maintain'], [true,true,true,true,true,true,true]],
+  ['General Motors','G', 'Holy',     4107, '$980k',  null,                 ['maintain','maintain','maintain','whitespace','maintain','maintain','maintain'], [true,true,true,false,true,true,true]],
+  ['FCA / Stellantis','F','Purgert', 2422, '$560k',  null,                 ['expand','maintain','target','whitespace','maintain','whitespace','maintain'], [true,true,true,true,true,false,true]],
+  ['Nissan / Infiniti NA','N','Riney',1400,'$310k', null,                 ['maintain','expand','whitespace','maintain','maintain','whitespace','whitespace'], [true,true,true,true,true,false,false]],
+  ['Honda',         'H', 'Townsend', 1317, '$90k',   'low capture',        ['whitespace','whitespace','target','whitespace','whitespace','target','whitespace'], [true,true,true,false,false,true,false]],
+  ['Toyota Motor NA','T','Holy',     968,  '$210k',  null,                 ['maintain','maintain','maintain','maintain','maintain','whitespace','whitespace'], [true,true,true,true,true,false,false]],
+  ['Hyundai',       'H', 'Townsend', 839,  '$185k',  null,                 ['maintain','maintain','maintain','maintain','maintain','maintain','whitespace'], [true,true,true,true,true,true,false]],
+  ['Kia',           'K', 'Townsend', 774,  '$140k',  null,                 ['maintain','maintain','whitespace','maintain','maintain','maintain','whitespace'], [true,true,false,true,true,true,false]],
+  ['Volkswagen',    'V', 'Durst',    700,  '$95k',   null,                 ['maintain','maintain','whitespace','whitespace','whitespace','whitespace','whitespace'], [true,true,false,false,false,false,false]],
+  ['Audi',          'A', 'Durst',    645,  '$72k',   null,                 ['maintain','maintain','whitespace','whitespace','whitespace','whitespace','whitespace'], [true,true,false,false,false,false,false]],
+  // Excluded row at the bottom
+  ['GM Mexico',     'G', 'Excluded — parts accelerator not applicable',275,'—',null, ['na','na','na','na','na','na','na'], [false,false,false,false,false,false,false], true]
+];
+
+const CA_OEMS = [
+  ['Honda CA',  'H', 'Marra',    287, '$12k', ['whitespace','maintain','whitespace','whitespace','whitespace','whitespace','whitespace'], [false,true,false,false,false,false,false]],
+  ['Toyota / Lexus CA','T','Holy',241,'$58k', ['maintain','whitespace','whitespace','maintain','whitespace','whitespace','whitespace'], [true,false,false,true,false,false,false]],
+  ['Hyundai CA','H', 'Marra',    224, '$22k', ['whitespace','maintain','whitespace','maintain','whitespace','maintain','whitespace'], [false,true,false,true,false,true,false]],
+  ['Nissan / Infiniti CA','N','Marra',182,'$48k',['maintain','maintain','whitespace','maintain','whitespace','whitespace','whitespace'],[true,true,false,true,false,false,false]],
+  ['Kia CA',    'K', 'Purgert',  161, '$35k', ['maintain','maintain','whitespace','maintain','target','maintain','whitespace'], [true,true,false,true,true,true,false]],
+];
+
+const US_PRODUCT_COLS = 7;
+const CA_PRODUCT_COLS = 7;
+const US_PRODUCT_NAMES = ['CL/Trax PMA','Mech PMA','BI / PSX','Audit','CRN','D2D','EPC Link'];
+const CA_PRODUCT_NAMES = ['CL PMA','RL PMA','BI / PSX','CRN','D2D','Parts Eye','EPC Link'];
+
+/* ───────── AUDIT LOG ───────── */
+const auditLog = [
+  {
+    actor: 'Dominica Smith', system: false,
+    time: 'May 22, 2026 · 2:14 PM',
+    account: 'Honda', product: 'Mech PMA',
+    from: 'whitespace', to: 'target',
+    reason: 'New OEM sponsorship discussion in motion per Townsend Q1 review; pilot West 50 in discovery.'
+  },
+  {
+    actor: 'CRM Auto-Sync', system: true,
+    time: 'May 18, 2026 · 6:02 AM',
+    account: 'FCA / Stellantis', product: 'BI / PSX',
+    from: 'maintain', to: 'expand',
+    reason: 'Opportunity HCJR-1284 advanced to Stage 3 (Proposal). Auto-promoted by rule: stage ≥ 3 → Expand.'
+  },
+  {
+    actor: 'Steve Churney', system: false,
+    time: 'May 15, 2026 · 10:48 AM',
+    account: 'GM Mexico', product: 'All products',
+    from: 'whitespace', to: 'na',
+    reason: 'Parts accelerator and downstream products not sold in Mexico market. Excluded from whitespace calculations per ENT scope.'
+  }
+];
+
+/* ───────── STATE ───────── */
+const state = {
+  activeCell: null, // { oem, productIdx, currentStatus }
+  selectedNewStatus: null,
+};
+
+/* ───────── RENDER MATRIX ───────── */
+function renderUS() {
+  const tbody = document.getElementById('us-tbody');
+  tbody.innerHTML = US_OEMS.map((oem, oemIdx) => {
+    const [name, initial, nam, dealers, acv, acvSub, statuses, samPlays, excluded] = oem;
+    const isExcluded = excluded === true;
+    const logoStyle = isExcluded
+      ? 'background:#F4F4F4;color:#A1A1AA;'
+      : (name === 'Honda' ? 'background:#FFF6E5;color:#8A6315;' : '');
+    const subContent = isExcluded
+      ? nam
+      : (name === 'Honda' ? `NAM: ${nam} · <em>high whitespace</em>` : `NAM: ${nam}`);
+
+    let cells = '';
+    for (let i = 0; i < US_PRODUCT_COLS; i++) {
+      const st = STATUSES.find(s => s.key === statuses[i]);
+      const samPlay = samPlays[i];
+      const isWS = statuses[i] === 'whitespace';
+      // Show green dot if there's a play; show alert dot if whitespace without play
+      let indicator = '';
+      if (isWS && samPlay) indicator = '<span class="play-dot" title="SAM play in motion"></span>';
+      else if (isWS && !samPlay) indicator = '<span class="alert-dot" title="No SAM activity logged"></span>';
+      else if (samPlay && statuses[i] !== 'na') indicator = '<span class="play-dot" title="SAM play in motion"></span>';
+
+      const cls = `cell-status ${st.cls}`;
+      const onclick = statuses[i] === 'na' ? '' : `onclick="openCellModal('${name}', ${i}, '${statuses[i]}', 'us', ${oemIdx})"`;
+      cells += `<td class="center"><span class="${cls}" ${onclick}>${st.label}${indicator}</span></td>`;
+    }
+
+    return `
+      <tr class="${isExcluded ? 'excluded' : ''}">
+        <td>
+          <div class="oem-cell" ${!isExcluded ? `onclick="openOEM('${name}')"` : ''}>
+            <div class="oem-logo" style="${logoStyle}">${initial}</div>
+            <div><div class="oem-name">${name}</div><div class="oem-sub">${subContent}</div></div>
+          </div>
+        </td>
+        <td class="center"><span class="dealer-count">${dealers.toLocaleString()}</span></td>
+        <td class="center">
+          <span class="acv">${acv}</span>
+          ${acvSub ? `<div class="acv-sub">${acvSub}</div>` : ''}
+        </td>
+        ${cells}
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderCA() {
+  const tbody = document.getElementById('ca-tbody');
+  tbody.innerHTML = CA_OEMS.map((oem, oemIdx) => {
+    const [name, initial, nam, dealers, acv, statuses, samPlays] = oem;
+    let cells = '';
+    for (let i = 0; i < CA_PRODUCT_COLS; i++) {
+      const st = STATUSES.find(s => s.key === statuses[i]);
+      const isWS = statuses[i] === 'whitespace';
+      let indicator = '';
+      if (isWS && samPlays[i]) indicator = '<span class="play-dot"></span>';
+      else if (isWS && !samPlays[i]) indicator = '<span class="alert-dot"></span>';
+      else if (samPlays[i]) indicator = '<span class="play-dot"></span>';
+      const onclick = `onclick="openCellModal('${name}', ${i}, '${statuses[i]}', 'ca', ${oemIdx})"`;
+      cells += `<td class="center"><span class="cell-status ${st.cls}" ${onclick}>${st.label}${indicator}</span></td>`;
+    }
+    return `
+      <tr>
+        <td><div class="oem-cell"><div class="oem-logo">${initial}</div><div><div class="oem-name">${name}</div><div class="oem-sub">SAM: ${nam}</div></div></div></td>
+        <td class="center"><span class="dealer-count">${dealers}</span></td>
+        <td class="center"><span class="acv">${acv}</span></td>
+        ${cells}
+      </tr>
+    `;
+  }).join('');
+}
+
+/* ───────── CELL MODAL ───────── */
+function openCellModal(oem, productIdx, currentStatus, region, oemIdx) {
+  if (currentStatus === 'na') return;
+  state.activeCell = { oem, productIdx, currentStatus, region, oemIdx };
+  state.selectedNewStatus = null;
+  const productNames = region === 'us' ? US_PRODUCT_NAMES : CA_PRODUCT_NAMES;
+  document.getElementById('modal-title').textContent = `${oem} · ${productNames[productIdx]}`;
+  const cur = STATUSES.find(s => s.key === currentStatus);
+  document.getElementById('modal-sub').innerHTML = `Currently: <strong>${cur.label}</strong> · ${cur.def}`;
+
+  // Render status options (excluding N/A)
+  const opts = STATUSES.filter(s => s.key !== 'na').map(s => `
+    <div class="status-option" onclick="selectStatus('${s.key}', this)">
+      <span class="swatch sw-${s.key === 'whitespace' ? 'ws' : s.key === 'maintain' ? 'maint' : s.key === 'expand' ? 'exp' : 'target'}"></span>
+      <span>${s.label}</span>
+    </div>
+  `).join('');
+  document.getElementById('status-options').innerHTML = opts;
+  document.getElementById('reason-input').value = '';
+  document.getElementById('action-input').value = '';
+  document.getElementById('cell-modal').classList.add('open');
+}
+
+function selectStatus(key, el) {
+  state.selectedNewStatus = key;
+  document.querySelectorAll('.status-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function closeModal() {
+  document.getElementById('cell-modal').classList.remove('open');
+}
+
+function saveCell() {
+  if (!state.selectedNewStatus) { showToast('Pick a new status'); return; }
+  const reason = document.getElementById('reason-input').value.trim();
+  const action = document.getElementById('action-input').value.trim();
+  if (!reason || !action) { showToast('Reason and SAM action are required'); return; }
+
+  const { oem, productIdx, currentStatus, region, oemIdx } = state.activeCell;
+  const productNames = region === 'us' ? US_PRODUCT_NAMES : CA_PRODUCT_NAMES;
+  const oemList = region === 'us' ? US_OEMS : CA_OEMS;
+  const statusesIdx = region === 'us' ? 6 : 5; // index of statuses array in OEM tuple
+  const samPlaysIdx = region === 'us' ? 7 : 6;
+
+  // Update the data
+  oemList[oemIdx][statusesIdx][productIdx] = state.selectedNewStatus;
+  oemList[oemIdx][samPlaysIdx][productIdx] = true; // logging a play
+
+  // Add audit entry
+  auditLog.unshift({
+    actor: 'You (Dominica Smith)', system: false,
+    time: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' }),
+    account: oem, product: productNames[productIdx],
+    from: currentStatus, to: state.selectedNewStatus,
+    reason: `${reason} — SAM action: ${action}`
+  });
+
+  // Re-render
+  if (region === 'us') renderUS(); else renderCA();
+  renderAudit();
+  document.getElementById('audit-count').textContent = auditLog.length;
+
+  closeModal();
+  showToast(`Updated ${oem} · ${productNames[productIdx]} → ${STATUSES.find(s => s.key === state.selectedNewStatus).label}`);
+}
+
+/* ───────── DEEP-DIVE DRAWER ───────── */
+function openOEM(name) {
+  // For demo, only Honda has full deep-dive built out
+  const drawer = document.getElementById('drawer');
+  drawer.style.display = 'block';
+  drawer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (name !== 'Honda') {
+    showToast(`Deep-dive for ${name} would populate here (Honda is built-out as the demo)`);
+  }
+}
+
+function switchTab(el, paneId) {
+  document.querySelectorAll('.drawer-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.drawer-tab-pane').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(paneId).classList.add('active');
+}
+
+/* ───────── AUDIT LOG ───────── */
+function renderAudit() {
+  const list = document.getElementById('audit-list');
+  list.innerHTML = auditLog.map(e => {
+    const from = STATUSES.find(s => s.key === e.from);
+    const to = STATUSES.find(s => s.key === e.to);
+    return `
+      <div class="audit-entry">
+        <div class="audit-meta">
+          <div class="audit-actor ${e.system ? 'system' : ''}">${e.actor}</div>
+          <div class="audit-time">${e.time}</div>
+        </div>
+        <div class="audit-body">
+          <strong>${e.account}</strong> · ${e.product}<br>
+          <span class="change">${from?.label || e.from}</span> → <span class="change">${to?.label || e.to}</span>
+        </div>
+        <div class="audit-reason">${e.reason}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleAudit() {
+  document.getElementById('audit-panel').classList.toggle('open');
+}
+
+/* ───────── TOAST ───────── */
+function showToast(msg) {
+  document.getElementById('toast-msg').textContent = msg;
+  document.getElementById('toast').classList.add('show');
+  setTimeout(() => document.getElementById('toast').classList.remove('show'), 2800);
+}
+
+/* ───────── GUIDED TOUR ───────── */
+const tourSteps = [
+  {
+    target: '.header',
+    title: 'Welcome — what this dashboard is',
+    body: `<strong>This replaces the old Excel whitespace report.</strong> It's powered by CRM opportunity data, refreshed from a CRM pull. The team never edits cells freeform — that's what caused the old report's drift. Changes happen through tracked overrides (you'll see that next).<br><br>Open this tour anytime via the <strong>Guided Tour</strong> button in the header.`
+  },
+  {
+    target: '.kpi-strip',
+    title: 'KPI strip · top-line health',
+    body: `Four metrics leadership should be able to read in 3 seconds:<br>
+      <div class="def-item"><span class="def-label" style="background:var(--accent-soft);color:var(--accent);">OEMS</span> Active accounts in CRM, minus excluded.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--status-whitespace-bg);color:var(--status-whitespace-ink);">WHITESPACE</span> Cells with no opportunity. The number behind it (<strong>89 without SAM play</strong>) is the one Steve and Matt should care about most — uncovered surface area with no documented action.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--status-target-bg);color:var(--status-target-ink);">PIPELINE ACV</span> Net new ACV in target-stage opportunities.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--frame-portfolio-soft);color:var(--frame-portfolio);">WALLET</span> Average share of OEM parts-data spend AutoSync captures.</div>`
+  },
+  {
+    target: '.controls',
+    title: 'Geographic tabs · sort logic',
+    body: `Geographies are separated by tab — US, Canada, International. Geography matters because product applicability varies (e.g., parts accelerator doesn't sell in Mexico).<br><br>
+      Default sort is by <strong>dealer count, high to low</strong>. Steve's logic: <em>high dealer count + low revenue = whitespace opportunity</em>. Honda is the textbook case — 1,317 dealers, $90k ACV.<br><br>
+      Other sort options will include: revenue captured, opportunity count, share of wallet, ascending/descending.`
+  },
+  {
+    target: '.legend',
+    title: 'Status definitions · the locked color system',
+    body: `Five locked statuses. <strong>No freeform colors, ever.</strong>
+      <div class="def-item"><span class="def-label" style="background:var(--status-whitespace-bg);color:var(--status-whitespace-ink);border:1px solid var(--status-whitespace-bd);">WHITE SPACE</span> No opportunity logged. Account doesn't own the product.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--status-maintain-bg);color:var(--status-maintain-ink);border:1px solid var(--status-maintain-bd);">MAINTAIN</span> Under contract. No growth motion.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--status-expand-bg);color:var(--status-expand-ink);border:1px solid var(--status-expand-bd);">EXPAND</span> Existing customer + active upsell motion.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--status-target-bg);color:var(--status-target-ink);border:1px solid var(--status-target-bd);">TARGET</span> Active pursuit. Opportunity stage 2+.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--status-na-bg);color:var(--status-na-ink);border:1px dashed var(--status-na-ink);">N/A</span> Product can't be sold (e.g., GM Mexico).</div>
+      <strong style="display:block;margin-top:10px;">The dots on cells:</strong>
+      <div class="def-item"><span class="def-label" style="background:var(--frame-sam-soft);color:var(--frame-sam);">GREEN</span> SAM play in motion.</div>
+      <div class="def-item"><span class="def-label" style="background:var(--frame-market-soft);color:var(--frame-market);">CORAL</span> No documented SAM activity — gap.</div>`
+  },
+  {
+    target: '.matrix',
+    title: 'The matrix · how to read it',
+    body: `Each row = an OEM. Each column = a product family. Each cell = the status of that product within that OEM account.<br><br>
+      <strong>Honda's row tells a story:</strong> 1,317 dealers (third-largest US OEM by dealer count), but only $90k ACV. Five out of seven product cells are whitespace. Two of those have <span class="def-label" style="background:var(--frame-sam-soft);color:var(--frame-sam);">green dots</span> (Townsend has a play). Three have <span class="def-label" style="background:var(--frame-market-soft);color:var(--frame-market);">coral dots</span> — whitespace with no documented SAM action. <strong>That's the question for the next QBR.</strong>`
+  },
+  {
+    target: '#us-tbody tr:nth-child(5) td:nth-child(5)',
+    title: 'Click a cell to update it',
+    body: `<strong>Try it now</strong> — click the Honda · Mech PMA cell after the tour ends. The update modal will ask three things:<br><br>
+      1. <strong>New status</strong> — pick one of four<br>
+      2. <strong>Reason for change</strong> — institutional memory<br>
+      3. <strong>SAM action / next play</strong> — required for white space cells. If we can't say what the SAM is doing in the account, we shouldn't be claiming it's a real target.<br><br>
+      Every change creates an audit log entry — who, when, what, why.`
+  },
+  {
+    target: '#us-tbody tr:nth-child(5) .oem-cell',
+    title: 'Click the OEM name for the strategic deep-dive',
+    body: `The drawer below is the <strong>strategic intelligence layer</strong> Steve and Matt should be able to interrogate before any planning conversation. Five tabs:<br><br>
+      <strong>CRM Opportunities</strong> — the raw pipeline backing each cell.<br>
+      <strong>SAM Activity</strong> — what is the rep doing in the account.<br>
+      <strong>Market & Competitor</strong> — unmet needs, blind spots, saturation maps.<br>
+      <strong>Portfolio & Revenue</strong> — account mining, product coverage, share of wallet.<br>
+      <strong>Execution & Viability</strong> — brand fit, barriers, team readiness.`
+  },
+  {
+    target: '.drawer-tabs',
+    title: 'The strategic frameworks',
+    body: `Each tab represents a lens for thinking about ROI on whitespace pursuit.<br><br>
+      <strong style="color:var(--frame-sam);">SAM Activity</strong> answers "what are we doing about it?" For every white space cell.<br><br>
+      <strong style="color:var(--frame-market);">Market & Competitor</strong> answers "is the opportunity real?" Sourced from NADA surveys, dealer feedback, competitive intel.<br><br>
+      <strong style="color:var(--frame-portfolio);">Portfolio & Revenue</strong> answers "how much is on the table?" Account mining, product coverage gap, share-of-wallet math.<br><br>
+      <strong style="color:var(--frame-execution);">Execution & Viability</strong> answers "can we actually go win it?" Brand alignment, barriers, team readiness.`
+  },
+  {
+    target: '[data-tour="audit-btn"]',
+    title: 'Activity Log · institutional memory',
+    body: `Every status change is logged. Sourced from two flows:<br><br>
+      <strong>CRM auto-sync</strong> — opportunity advances to stage 3, cell auto-promotes from Maintain to Expand. Tagged as system-generated.<br><br>
+      <strong>Manual override</strong> — Dominica or Steve changes a cell directly with reason + SAM action. Tagged with the human actor.<br><br>
+      This is the <strong>answer to "who changed this and why?"</strong> The old Excel had no answer. This one does.`
+  },
+  {
+    target: '.footnote',
+    title: 'That\'s the tour',
+    body: `<strong>What to do next:</strong><br><br>
+      1. Click around — the modal, the drawer tabs, the activity log.<br>
+      2. Note what's missing vs. what you'd want to see. The questions list in the write-up doc is where to capture those.<br>
+      3. Show this to Steve and Matt in the follow-up. Focus the conversation on the strategic framework tabs — that's where the leadership-level conversation lives.<br><br>
+      Open the tour again anytime via the button in the header.`
+  }
+];
+
+let tourIdx = 0;
+
+function startTour() {
+  tourIdx = 0;
+  document.getElementById('tour-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  showTourStep();
+}
+
+function endTour() {
+  document.getElementById('tour-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function nextStep() { if (tourIdx < tourSteps.length - 1) { tourIdx++; showTourStep(); } else endTour(); }
+function prevStep() { if (tourIdx > 0) { tourIdx--; showTourStep(); } }
+
+function showTourStep() {
+  const step = tourSteps[tourIdx];
+  const target = document.querySelector(step.target);
+  if (!target) return;
+
+  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  setTimeout(() => {
+    const rect = target.getBoundingClientRect();
+    const highlight = document.getElementById('tour-highlight');
+    const PAD = 8;
+    highlight.style.left = (rect.left - PAD) + 'px';
+    highlight.style.top = (rect.top - PAD) + 'px';
+    highlight.style.width = (rect.width + PAD * 2) + 'px';
+    highlight.style.height = (rect.height + PAD * 2) + 'px';
+
+    // Position tooltip
+    const tooltip = document.getElementById('tour-tooltip');
+    const tooltipW = 380;
+    let left, top;
+    // Prefer right side if room, else below, else left
+    if (rect.right + tooltipW + 30 < window.innerWidth) {
+      left = rect.right + 24;
+      top = Math.max(20, rect.top);
+    } else if (rect.left - tooltipW - 30 > 0) {
+      left = rect.left - tooltipW - 24;
+      top = Math.max(20, rect.top);
+    } else {
+      left = Math.max(20, (window.innerWidth - tooltipW) / 2);
+      top = rect.bottom + 20;
+    }
+    // Keep tooltip on-screen vertically
+    const tooltipH = tooltip.offsetHeight || 320;
+    if (top + tooltipH > window.innerHeight - 20) top = Math.max(20, window.innerHeight - tooltipH - 20);
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+
+    document.getElementById('tour-step-label').textContent = `STEP ${tourIdx + 1} OF ${tourSteps.length}`;
+    document.getElementById('tour-title').textContent = step.title;
+    document.getElementById('tour-body').innerHTML = step.body;
+
+    // Progress dots
+    const prog = document.getElementById('tour-progress');
+    prog.innerHTML = tourSteps.map((_, i) => `<div class="tour-dot ${i === tourIdx ? 'active' : i < tourIdx ? 'done' : ''}"></div>`).join('');
+
+    // Buttons
+    document.getElementById('tour-prev').style.visibility = tourIdx === 0 ? 'hidden' : 'visible';
+    document.getElementById('tour-next').textContent = tourIdx === tourSteps.length - 1 ? 'Finish' : 'Next →';
+  }, 350);
+}
+
+window.addEventListener('resize', () => {
+  if (document.getElementById('tour-overlay').classList.contains('active')) showTourStep();
+});
+
+/* ───────── INIT ───────── */
+renderUS();
+renderCA();
+renderAudit();
+document.getElementById('audit-count').textContent = auditLog.length;
+
+// Close modal on backdrop click
+document.getElementById('cell-modal').addEventListener('click', (e) => {
+  if (e.target.id === 'cell-modal') closeModal();
+});
+
+// Close audit on escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+    document.getElementById('audit-panel').classList.remove('open');
+    if (document.getElementById('tour-overlay').classList.contains('active')) endTour();
+  }
+});
+</script>
+
+</body>
+</html>
+

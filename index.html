@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dominica Smith — Sales Operations Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #080D18;
+  --surface:   #0F1928;
+  --surface-h: #14223A;
+  --accent:    #00B4D8;
+  --accent-glow: rgba(0,180,216,.12);
+  --text:      #EEF2FF;
+  --text-dim:  #94A3B8;
+  --border:    #1E2D42;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ─────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: rgba(8,13,24,.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-mark {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: .05em;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  letter-spacing: .06em;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* ── HERO ─────────────────────────────────────────── */
+.hero {
+  padding: 100px 40px 80px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+.hero-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin-bottom: 36px;
+}
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .2s;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #080D18;
+  border: 1px solid transparent;
+}
+.btn-primary:hover { background: #00caf5; }
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+
+/* ── SECTION SHARED ───────────────────────────────── */
+section { padding: 80px 40px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  margin-bottom: 48px;
+  letter-spacing: -.01em;
+}
+
+/* ── TOOLS GRID ───────────────────────────────────── */
+#tools { border-top: 1px solid var(--border); }
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 24px;
+}
+
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: background .25s, border-color .25s, transform .25s cubic-bezier(0.16,1,0.3,1);
+  cursor: default;
+}
+.tool-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s cubic-bezier(0.16,1,0.3,1);
+}
+.tool-card:hover {
+  background: var(--surface-h);
+  border-color: rgba(0,180,216,.3);
+  transform: translateY(-2px);
+}
+.tool-card:hover::after { transform: scaleX(1); }
+
+.tool-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--accent);
+  text-transform: uppercase;
+  border: 1px solid rgba(0,180,216,.25);
+  border-radius: 4px;
+  padding: 3px 8px;
+  display: inline-block;
+  width: fit-content;
+}
+.tool-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.tool-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  flex: 1;
+}
+.tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 9px;
+}
+.tool-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: .04em;
+  margin-top: 4px;
+  transition: gap .2s;
+}
+.tool-link:hover { gap: 10px; }
+.tool-link svg { flex-shrink: 0; }
+
+/* ── SKILLS ───────────────────────────────────────── */
+#skills { border-top: 1px solid var(--border); background: rgba(15,25,40,.5); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.skill-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 22px;
+}
+.skill-block-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.skill-list li {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ── ABOUT ────────────────────────────────────────── */
+#about { border-top: 1px solid var(--border); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.about-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-dim);
+}
+.about-body p + p { margin-top: 16px; }
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px;
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* ── CONTACT ──────────────────────────────────────── */
+#contact { border-top: 1px solid var(--border); text-align: center; }
+.contact-body {
+  font-size: 15px;
+  color: var(--text-dim);
+  max-width: 480px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ── FOOTER ───────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 72px 20px 60px; }
+  section { padding: 60px 20px; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-mark">DS / SALES OPS</span>
+  <ul class="nav-links">
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Sales Operations &amp; Strategy</p>
+  <h1>Turning data<br>into <em>revenue motion</em></h1>
+  <p class="hero-body">
+    I build the tools, models, and dashboards that help sales teams see clearly and act fast —
+    territory design, whitespace identification, performance tracking, and market opportunity analysis.
+  </p>
+  <div class="hero-cta">
+    <a href="#tools" class="btn btn-primary">View Tools</a>
+    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-inner">
+    <p class="section-label">Interactive Demos</p>
+    <h2 class="section-title">Built for the field.</h2>
+    <div class="tools-grid">
+
+      <!-- 1. Territory Intelligence Planner -->
+      <div class="tool-card">
+        <span class="tool-tag">Territory Design</span>
+        <h3 class="tool-title">Territory Intelligence Planner</h3>
+        <p class="tool-desc">
+          Drop-zone CSV intake for ZIP-level territory assignments. Supports multi-rep overlapping
+          territories, CRM ID validation, and exports field-ready drop files for Salesforce ingestion.
+          Built to eliminate the spreadsheet-as-territory-system problem.
+        </p>
+        <div class="tool-chips">
+          <span class="chip">CSV Processing</span>
+          <span class="chip">ZIP Mapping</span>
+          <span class="chip">CRM Export</span>
+        </div>
+        <a class="tool-link" href="tools/territory-intelligence-planner.html" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Tool
+        </a>
+      </div>
+
+      <!-- 2. Market Opportunity Dashboard -->
+      <div class="tool-card">
+        <span class="tool-tag">Market Analysis</span>
+        <h3 class="tool-title">Market Opportunity Dashboard</h3>
+        <p class="tool-desc">
+          Total addressable market view segmented by product tier, dealer size, and geography.
+          Surfaces upsell and cross-sell opportunity scores alongside call activity and pipeline
+          coverage — designed for QBR storytelling and rep coaching conversations.
+        </p>
+        <div class="tool-chips">
+          <span class="chip">TAM Sizing</span>
+          <span class="chip">Coverage Analysis</span>
+          <span class="chip">Pipeline</span>
+        </div>
+        <a class="tool-link" href="tools/market-opportunity-dashboard.html" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Tool
+        </a>
+      </div>
+
+      <!-- 3. Whitespace Command Center -->
+      <div class="tool-card">
+        <span class="tool-tag">Whitespace &amp; Expansion</span>
+        <h3 class="tool-title">Whitespace Command Center</h3>
+        <p class="tool-desc">
+          Strategic whitespace analysis across OEM partnerships — identifying non-enrolled dealers,
+          share-of-wallet gaps, and cross-sell readiness signals. Frames expansion opportunity
+          with competitive context and account-level priority scoring.
+        </p>
+        <div class="tool-chips">
+          <span class="chip">OEM Analysis</span>
+          <span class="chip">Share-of-Wallet</span>
+          <span class="chip">Expansion</span>
+        </div>
+        <a class="tool-link" href="tools/whitespace-command-center.html" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Tool
+        </a>
+      </div>
+
+      <!-- 4. Sales Performance Map -->
+      <div class="tool-card">
+        <span class="tool-tag">Performance</span>
+        <h3 class="tool-title">Sales Performance Map</h3>
+        <p class="tool-desc">
+          Geo-layered performance visualization across the dealer network — rep attainment,
+          product penetration, and at-risk account signals plotted at the market level.
+          Built for weekly leadership reviews and field rep accountability conversations.
+        </p>
+        <div class="tool-chips">
+          <span class="chip">Geo Mapping</span>
+          <span class="chip">Rep Attainment</span>
+          <span class="chip">Leaflet.js</span>
+        </div>
+        <a class="tool-link" href="tools/sales-performance-map.html" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Tool
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">Stack &amp; domain.</h2>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <p class="skill-block-label">Analysis</p>
+        <ul class="skill-list">
+          <li>Territory design &amp; carve optimization</li>
+          <li>TAM / SAM modeling</li>
+          <li>Pipeline &amp; coverage analysis</li>
+          <li>Attrition risk modeling</li>
+          <li>Quota setting &amp; attainment</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <p class="skill-block-label">Tools &amp; Tech</p>
+        <ul class="skill-list">
+          <li>Salesforce / CRM data ops</li>
+          <li>Excel / Power Query (advanced)</li>
+          <li>SQL (analytical queries)</li>
+          <li>HTML / CSS / JavaScript</li>
+          <li>Leaflet.js, Chart.js</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <p class="skill-block-label">Delivery</p>
+        <ul class="skill-list">
+          <li>Executive dashboard builds</li>
+          <li>QBR &amp; board-ready reporting</li>
+          <li>Incentive compensation modeling</li>
+          <li>Cross-functional process design</li>
+          <li>Field enablement materials</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <p class="skill-block-label">Domain</p>
+        <ul class="skill-list">
+          <li>Automotive dealer networks</li>
+          <li>SaaS / subscription sales ops</li>
+          <li>OEM channel partnerships</li>
+          <li>B2B direct + indirect models</li>
+          <li>Multi-product portfolio orgs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">The work behind the tools.</h2>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>
+          I've spent my career at the intersection of sales strategy and operational execution —
+          turning messy CRM data, territory files, and call activity logs into clear pictures
+          that help leaders make faster, better decisions.
+        </p>
+        <p>
+          The tools in this portfolio were built out of real frustration: analysis that should
+          take an hour was taking days, and insights were living in spreadsheets no one could
+          actually use in a meeting. I started building my own.
+        </p>
+        <p>
+          I bring the same rigor to process design, quota modeling, and incentive comp — with
+          enough technical depth to bridge the gap between what the data says and what the
+          business needs to hear.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">25K+</div>
+          <div class="stat-label">Dealers analyzed across network</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Interactive tools shipped</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7+</div>
+          <div class="stat-label">Years in sales ops &amp; strategy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">$B+</div>
+          <div class="stat-label">Revenue motion influenced</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Let's talk</p>
+    <h2 class="section-title">Open to the right opportunity.</h2>
+    <p class="contact-body">
+      If you're building or scaling a sales ops function and need someone who can both
+      do the analysis and ship the tools — let's connect.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:dlsmith36@outlook.com" class="btn btn-primary">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        dlsmith36@outlook.com
+      </a>
+      <a href="https://www.linkedin.com/in/dominica-smith" target="_blank" class="btn btn-ghost">
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Dominica Smith</span>
+  <span>Sales Operations Portfolio</span>
+</footer>
+
+</body>
+</html>
