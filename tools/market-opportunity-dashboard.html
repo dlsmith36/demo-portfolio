@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -20,12 +20,6 @@
   --warning: #C79A00;
   --danger: #C9392A;
   --info: #1B9BA8;
-  --heat-0: #EEF3F8;
-  --heat-1: #C9DCF0;
-  --heat-2: #8FBCE4;
-  --heat-3: #4F97D4;
-  --heat-4: #2171B8;
-  --heat-5: #0A5EA8;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.45; overflow: hidden; -webkit-font-smoothing: antialiased; }
@@ -34,7 +28,6 @@ button { cursor: pointer; border: none; background: none; }
 
 .app { position: fixed; inset: 0; display: grid; grid-template-rows: 56px 36px 1fr; }
 
-/* Header */
 .hdr { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .hdr-l { display: flex; align-items: center; gap: 16px; }
 .hdr-title { font-size: 14px; font-weight: 600; letter-spacing: 0.2px; }
@@ -44,9 +37,8 @@ button { cursor: pointer; border: none; background: none; }
 .btn:hover { background: var(--border); }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn-primary:hover { background: #0d6fc0; }
-select.btn { padding-right: 24px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234D4E53'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+select.btn { padding-right: 24px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2020/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234D4E53'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
 
-/* Nav bar */
 .nav-bar { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 12px; align-items: stretch; overflow-x: auto; }
 .nav-tab { background: transparent; color: var(--text-dim); border: none; padding: 0 14px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 0.2px; position: relative; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 .nav-tab:hover { color: var(--text); }
@@ -55,12 +47,10 @@ select.btn { padding-right: 24px; appearance: none; background-image: url("data:
 .nav-badge { font-size: 10px; background: var(--surface-2); color: var(--text-dim); padding: 1px 6px; border-radius: 8px; }
 .nav-tab.active .nav-badge { background: var(--accent); color: #fff; }
 
-/* Main layout */
-.main { display: grid; grid-template-columns: 260px 1fr; overflow: hidden; }
+.main { display: grid; grid-template-columns: 240px 1fr; overflow: hidden; }
 .sidebar { background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 14px; }
 .content { overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
 
-/* Sidebar filters */
 .filter-section { display: flex; flex-direction: column; gap: 6px; }
 .filter-label { font-size: 10px; font-weight: 600; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 0 2px; border-bottom: 1px solid var(--border); }
 .filter-chip-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -71,7 +61,6 @@ select.btn { padding-right: 24px; appearance: none; background-image: url("data:
 .filter-range label { font-size: 11px; color: var(--text-dim); display: flex; justify-content: space-between; }
 .filter-range input[type=range] { width: 100%; accent-color: var(--accent); }
 
-/* KPI row */
 .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
 .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; }
 .kpi-label { font-size: 10px; color: var(--text-subtle); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
@@ -81,7 +70,6 @@ select.btn { padding-right: 24px; appearance: none; background-image: url("data:
 .kpi-val.warn { color: var(--warning); }
 .kpi-val.danger { color: var(--danger); }
 
-/* Table */
 .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
 .table-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--border); }
 .table-title { font-size: 12px; font-weight: 600; }
@@ -105,29 +93,35 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
 .pill-blue { background: #D6E9FF; color: #0A5EA8; }
 .pill-gray { background: var(--surface-2); color: var(--text-dim); }
 
-/* Product coverage dots */
 .dot-row { display: flex; gap: 4px; }
 .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .dot-on { background: var(--positive); }
 .dot-off { background: var(--border-strong); }
 
-/* Opportunity heatmap mini */
-.heat-cell { display: inline-block; width: 100%; text-align: center; border-radius: 3px; padding: 2px 6px; font-weight: 600; }
-
-/* Chart area */
 .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 14px; }
 .chart-title { font-size: 12px; font-weight: 600; margin-bottom: 12px; }
 .bar-chart { display: flex; flex-direction: column; gap: 8px; }
 .bc-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
-.bc-label { width: 110px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
-.bc-track { flex: 1; height: 16px; background: var(--surface-2); border-radius: 3px; overflow: hidden; position: relative; }
+.bc-label { width: 100px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+.bc-track { flex: 1; height: 16px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
 .bc-bar { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 6px; font-size: 10px; color: #fff; font-weight: 600; transition: width .5s cubic-bezier(.16,1,.3,1); }
 .bc-val { width: 40px; text-align: right; color: var(--text-dim); flex-shrink: 0; }
 
-/* Demo banner */
+.coverage-grid { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; font-size: 11px; }
+.cov-header { background: var(--surface-2); font-weight: 600; padding: 6px 10px; color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+.cov-row { display: grid; background: var(--surface); }
+.cov-cell { padding: 6px 10px; }
+.cov-pct { display: inline-block; padding: 2px 6px; border-radius: 3px; font-weight: 600; font-size: 10px; }
+.cov-high { background: #D1F0D8; color: #1B5C27; }
+.cov-mid  { background: #FFF0B8; color: #7A5400; }
+.cov-low  { background: #FFE2DF; color: #7A1E12; }
+
 .demo-banner { background: linear-gradient(90deg, #0A5EA8, #2886EC); color: #fff; padding: 6px 16px; font-size: 11px; display: flex; align-items: center; gap: 10px; border-radius: 4px; }
 .demo-banner strong { font-weight: 600; }
+
+.view { display: none; flex-direction: column; gap: 16px; }
+.view.active { display: flex; }
 </style>
 </head>
 <body>
@@ -137,10 +131,10 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
 <div class="hdr">
   <div class="hdr-l">
     <span class="hdr-title">Market Opportunity Dashboard</span>
-    <span class="hdr-meta">Demo · 24,800 dealers · Data as of Q2 2026</span>
+    <span class="hdr-meta">Demo · 24,800 primary clients · Data as of Q2 2026</span>
   </div>
   <div class="hdr-r">
-    <select class="btn" id="regionSel">
+    <select class="btn" id="regionSel" onchange="applyFilters()">
       <option value="all">All Regions</option>
       <option value="ne">Northeast</option>
       <option value="se">Southeast</option>
@@ -155,9 +149,9 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
 <!-- Nav tabs -->
 <div class="nav-bar">
   <button class="nav-tab active" onclick="switchTab(this,'overview')">Overview <span class="nav-badge" id="badge-overview">24,800</span></button>
-  <button class="nav-tab" onclick="switchTab(this,'coverage')">Coverage Analysis <span class="nav-badge" id="badge-coverage">—</span></button>
-  <button class="nav-tab" onclick="switchTab(this,'opps')">Open Opportunities <span class="nav-badge" id="badge-opps">6,240</span></button>
-  <button class="nav-tab" onclick="switchTab(this,'upsell')">Upsell Targets <span class="nav-badge" id="badge-upsell">3,180</span></button>
+  <button class="nav-tab" onclick="switchTab(this,'coverage')">Coverage Analysis <span class="nav-badge" id="badge-coverage">6 products</span></button>
+  <button class="nav-tab" onclick="switchTab(this,'opps')">Open Opportunities <span class="nav-badge" id="badge-opps">—</span></button>
+  <button class="nav-tab" onclick="switchTab(this,'upsell')">Upsell Targets <span class="nav-badge" id="badge-upsell">—</span></button>
 </div>
 
 <!-- Main -->
@@ -168,44 +162,48 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
     <div class="filter-section">
       <div class="filter-label">Product Tier</div>
       <div class="filter-chip-wrap">
-        <button class="fchip active" onclick="toggleChip(this)">Core</button>
-        <button class="fchip active" onclick="toggleChip(this)">Add-On</button>
-        <button class="fchip active" onclick="toggleChip(this)">Bundle</button>
+        <button class="fchip active" data-filter="tier" data-val="Core" onclick="toggleChip(this)">Core</button>
+        <button class="fchip active" data-filter="tier" data-val="Add-On" onclick="toggleChip(this)">Add-On</button>
+        <button class="fchip active" data-filter="tier" data-val="Bundle" onclick="toggleChip(this)">Bundle</button>
       </div>
     </div>
     <div class="filter-section">
-      <div class="filter-label">Dealer Size</div>
+      <div class="filter-label">Client Size</div>
       <div class="filter-chip-wrap">
-        <button class="fchip active" onclick="toggleChip(this)">Tier 1</button>
-        <button class="fchip active" onclick="toggleChip(this)">Tier 2</button>
-        <button class="fchip active" onclick="toggleChip(this)">Tier 3</button>
+        <button class="fchip active" data-filter="size" data-val="Tier 1" onclick="toggleChip(this)">Tier 1</button>
+        <button class="fchip active" data-filter="size" data-val="Tier 2" onclick="toggleChip(this)">Tier 2</button>
+        <button class="fchip active" data-filter="size" data-val="Tier 3" onclick="toggleChip(this)">Tier 3</button>
       </div>
     </div>
     <div class="filter-section">
       <div class="filter-label">Status</div>
       <div class="filter-chip-wrap">
-        <button class="fchip active" onclick="toggleChip(this)">Active</button>
-        <button class="fchip" onclick="toggleChip(this)">At-Risk</button>
-        <button class="fchip" onclick="toggleChip(this)">Whitespace</button>
-        <button class="fchip" onclick="toggleChip(this)">Churn</button>
+        <button class="fchip active" data-filter="status" data-val="Active" onclick="toggleChip(this)">Active</button>
+        <button class="fchip active" data-filter="status" data-val="At-Risk" onclick="toggleChip(this)">At-Risk</button>
+        <button class="fchip active" data-filter="status" data-val="Whitespace" onclick="toggleChip(this)">Whitespace</button>
+        <button class="fchip active" data-filter="status" data-val="Upsell" onclick="toggleChip(this)">Upsell</button>
       </div>
     </div>
     <div class="filter-section">
       <div class="filter-label">Opportunity Score</div>
       <div class="filter-range">
-        <label>Min score: <span id="scoreVal">50</span></label>
-        <input type="range" min="0" max="100" value="50" oninput="document.getElementById('scoreVal').textContent=this.value">
+        <label>Min score: <span id="scoreVal">0</span></label>
+        <input type="range" min="0" max="100" value="0" id="scoreRange" oninput="document.getElementById('scoreVal').textContent=this.value; applyFilters()">
       </div>
     </div>
     <div class="filter-section">
-      <div class="filter-label">OEM Partner</div>
+      <div class="filter-label">OEM</div>
       <div class="filter-chip-wrap">
-        <button class="fchip active" onclick="toggleChip(this)">Honda</button>
-        <button class="fchip active" onclick="toggleChip(this)">Toyota</button>
-        <button class="fchip active" onclick="toggleChip(this)">Ford</button>
-        <button class="fchip active" onclick="toggleChip(this)">GM</button>
-        <button class="fchip active" onclick="toggleChip(this)">Stellantis</button>
-        <button class="fchip active" onclick="toggleChip(this)">Other</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM A" onclick="toggleChip(this)">OEM A</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM B" onclick="toggleChip(this)">OEM B</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM C" onclick="toggleChip(this)">OEM C</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM D" onclick="toggleChip(this)">OEM D</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM E" onclick="toggleChip(this)">OEM E</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM F" onclick="toggleChip(this)">OEM F</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM G" onclick="toggleChip(this)">OEM G</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM H" onclick="toggleChip(this)">OEM H</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM I" onclick="toggleChip(this)">OEM I</button>
+        <button class="fchip active" data-filter="oem" data-val="OEM J" onclick="toggleChip(this)">OEM J</button>
       </div>
     </div>
     <div style="margin-top:auto;padding-top:8px;">
@@ -218,198 +216,433 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
 
   <!-- Content -->
   <div class="content" id="mainContent">
-    <!-- KPIs -->
-    <div class="kpi-row">
-      <div class="kpi">
-        <div class="kpi-label">Total Dealers</div>
-        <div class="kpi-val">24,800</div>
-        <div class="kpi-sub">US + Canada</div>
+
+    <!-- Overview view -->
+    <div class="view active" id="view-overview">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-label">Total Primary Clients</div><div class="kpi-val" id="kpi-total">24,800</div><div class="kpi-sub">US + Canada</div></div>
+        <div class="kpi"><div class="kpi-label">Active Subscriptions</div><div class="kpi-val pos" id="kpi-active">—</div><div class="kpi-sub" id="kpi-active-sub">—</div></div>
+        <div class="kpi"><div class="kpi-label">Open Opportunities</div><div class="kpi-val" style="color:var(--accent)" id="kpi-opps">—</div><div class="kpi-sub" id="kpi-opps-sub">—</div></div>
+        <div class="kpi"><div class="kpi-label">At-Risk Accounts</div><div class="kpi-val warn" id="kpi-risk">—</div><div class="kpi-sub" id="kpi-risk-sub">—</div></div>
+        <div class="kpi"><div class="kpi-label">Upsell Candidates</div><div class="kpi-val" style="color:var(--info)" id="kpi-upsell">—</div><div class="kpi-sub">Avg score <span id="kpi-upsell-score">—</span></div></div>
       </div>
-      <div class="kpi">
-        <div class="kpi-label">Active Subscriptions</div>
-        <div class="kpi-val pos">18,560</div>
-        <div class="kpi-sub">74.8% penetration</div>
+      <div class="chart-row">
+        <div class="chart-card"><div class="chart-title">Opportunity by Market</div><div class="bar-chart" id="marketChart"></div></div>
+        <div class="chart-card"><div class="chart-title">Product Penetration Rate</div><div class="bar-chart" id="productChart"></div></div>
       </div>
-      <div class="kpi">
-        <div class="kpi-label">Open Opportunities</div>
-        <div class="kpi-val" style="color:var(--accent)">6,240</div>
-        <div class="kpi-sub">$12.4M est. ARR</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">At-Risk Accounts</div>
-        <div class="kpi-val warn">1,820</div>
-        <div class="kpi-sub">7.3% of base</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Upsell Candidates</div>
-        <div class="kpi-val" style="color:var(--info)">3,180</div>
-        <div class="kpi-sub">Avg score 73</div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-title">Primary Client Opportunity List</span>
+          <span class="table-meta" id="tableCount"></span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table id="dealerTable">
+            <thead>
+              <tr>
+                <th onclick="sortTable('name')">Primary Client</th>
+                <th onclick="sortTable('entity')">Managing Entity</th>
+                <th onclick="sortTable('market')">Market</th>
+                <th onclick="sortTable('oem')">OEM</th>
+                <th onclick="sortTable('tier')">Size</th>
+                <th onclick="sortTable('products')">Products</th>
+                <th onclick="sortTable('score')" class="sorted">Opp Score ↓</th>
+                <th onclick="sortTable('arr')">Est. ARR</th>
+                <th onclick="sortTable('status')">Status</th>
+              </tr>
+            </thead>
+            <tbody id="dealerTbody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <!-- Charts -->
-    <div class="chart-row">
+    <!-- Coverage Analysis view -->
+    <div class="view" id="view-coverage">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-label">Total Primary Clients</div><div class="kpi-val" id="cov-kpi-total">—</div><div class="kpi-sub">In filter</div></div>
+        <div class="kpi"><div class="kpi-label">Avg Products / Client</div><div class="kpi-val pos" id="cov-kpi-avg">—</div><div class="kpi-sub">Of 6 products</div></div>
+        <div class="kpi"><div class="kpi-label">Zero Coverage</div><div class="kpi-val danger" id="cov-kpi-zero">—</div><div class="kpi-sub">No active products</div></div>
+        <div class="kpi"><div class="kpi-label">Full Bundle</div><div class="kpi-val" style="color:var(--info)" id="cov-kpi-full">—</div><div class="kpi-sub">4+ products active</div></div>
+        <div class="kpi"><div class="kpi-label">Est. Expansion ARR</div><div class="kpi-val" style="color:var(--accent)" id="cov-kpi-arr">—</div><div class="kpi-sub">Whitespace potential</div></div>
+      </div>
       <div class="chart-card">
-        <div class="chart-title">Opportunity by Market</div>
-        <div class="bar-chart" id="marketChart"></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Product Penetration Rate</div>
-        <div class="bar-chart" id="productChart"></div>
+        <div class="chart-title">Product Coverage by OEM Partner</div>
+        <div id="coverageGrid"></div>
       </div>
     </div>
 
-    <!-- Dealer table -->
-    <div class="table-card">
-      <div class="table-header">
-        <span class="table-title">Dealer Opportunity List</span>
-        <span class="table-meta" id="tableCount">Showing 50 of 6,240 open opportunities</span>
+    <!-- Open Opportunities view -->
+    <div class="view" id="view-opps">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-label">Open Opportunities</div><div class="kpi-val" style="color:var(--accent)" id="opp-kpi-count">—</div><div class="kpi-sub">Whitespace + Upsell</div></div>
+        <div class="kpi"><div class="kpi-label">Est. Total ARR</div><div class="kpi-val pos" id="opp-kpi-arr">—</div><div class="kpi-sub">If fully converted</div></div>
+        <div class="kpi"><div class="kpi-label">Avg Opp Score</div><div class="kpi-val" id="opp-kpi-score">—</div><div class="kpi-sub">Out of 100</div></div>
+        <div class="kpi"><div class="kpi-label">Whitespace</div><div class="kpi-val warn" id="opp-kpi-ws">—</div><div class="kpi-sub">Not yet a client</div></div>
+        <div class="kpi"><div class="kpi-label">Upsell</div><div class="kpi-val" style="color:var(--info)" id="opp-kpi-us">—</div><div class="kpi-sub">Expansion ready</div></div>
       </div>
-      <div style="overflow-x:auto;">
-        <table id="dealerTable">
-          <thead>
-            <tr>
-              <th onclick="sortTable('name')">Dealer Name</th>
-              <th onclick="sortTable('market')">Market</th>
-              <th onclick="sortTable('oem')">OEM</th>
-              <th onclick="sortTable('tier')">Tier</th>
-              <th onclick="sortTable('products')">Products</th>
-              <th onclick="sortTable('score')" class="sorted">Opp Score ↓</th>
-              <th onclick="sortTable('arr')">Est. ARR</th>
-              <th onclick="sortTable('status')">Status</th>
-            </tr>
-          </thead>
-          <tbody id="dealerTbody"></tbody>
-        </table>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-title">Open Opportunity Pipeline</span>
+          <span class="table-meta" id="oppsCount"></span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Primary Client</th>
+                <th>Managing Entity</th>
+                <th>Market</th>
+                <th>OEM</th>
+                <th>Size</th>
+                <th>Products</th>
+                <th class="sorted">Opp Score ↓</th>
+                <th>Est. ARR</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="oppsTbody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
+    <!-- Upsell Targets view -->
+    <div class="view" id="view-upsell">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-label">Upsell Targets</div><div class="kpi-val" style="color:var(--info)" id="up-kpi-count">—</div><div class="kpi-sub">Active clients</div></div>
+        <div class="kpi"><div class="kpi-label">Est. Expansion ARR</div><div class="kpi-val pos" id="up-kpi-arr">—</div><div class="kpi-sub">Upsell potential</div></div>
+        <div class="kpi"><div class="kpi-label">Avg Score</div><div class="kpi-val" id="up-kpi-score">—</div><div class="kpi-sub">Readiness index</div></div>
+        <div class="kpi"><div class="kpi-label">High Priority (80+)</div><div class="kpi-val danger" id="up-kpi-high">—</div><div class="kpi-sub">Act now</div></div>
+        <div class="kpi"><div class="kpi-label">Avg Products Active</div><div class="kpi-val" id="up-kpi-prod">—</div><div class="kpi-sub">Of 6 total</div></div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-card"><div class="chart-title">Upsell Targets by OEM</div><div class="bar-chart" id="upsellOemChart"></div></div>
+        <div class="chart-card"><div class="chart-title">Upsell Targets by Market</div><div class="bar-chart" id="upsellMktChart"></div></div>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-title">Upsell Target List</span>
+          <span class="table-meta" id="upsellCount"></span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Primary Client</th>
+                <th>Managing Entity</th>
+                <th>Market</th>
+                <th>OEM</th>
+                <th>Size</th>
+                <th>Products</th>
+                <th class="sorted">Opp Score ↓</th>
+                <th>Est. ARR</th>
+              </tr>
+            </thead>
+            <tbody id="upsellTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.content -->
+</div><!-- /.main -->
 </div><!-- /.app -->
 
 <script>
-// ── Synthetic data generation ──────────────────────────────
 const MARKETS = ['Atlanta, GA','Chicago, IL','Dallas, TX','Denver, CO','Detroit, MI','Houston, TX','Los Angeles, CA','Miami, FL','Minneapolis, MN','Nashville, TN','New York, NY','Phoenix, AZ','Portland, OR','Raleigh, NC','San Francisco, CA','Seattle, WA','St. Louis, MO','Tampa, FL'];
-const OEMS = ['Honda','Toyota','Ford','GM','Stellantis','Hyundai','Subaru','Nissan','BMW','Mercedes'];
-const PRODUCTS = ['CollisionPro','ServicePro','TraxPro','eMarket','DMS Connect','PartsSuite'];
-const STATUSES = ['Whitespace','Upsell','At-Risk','Cross-Sell'];
-const DEALER_PREFIXES = ['Metro Motors','Pinnacle Auto','Summit Group','Pacific Motors','Meridian Auto','Atlas Group','Keystone Motors','Frontier Auto','Western Group','Heritage Motors','Central Auto','Lakeside Motors','Classic','Crown','Prestige Auto','Valley Motors','Capital Auto','Northside Motors','Courtesy Auto','Eastern Group'];
-const DEALER_SUFFIX = ['Auto','Motors','Automotive','Group','Dealership','Direct'];
+const REGION_MAP = {
+  ne: ['New York, NY','Raleigh, NC'],
+  se: ['Atlanta, GA','Nashville, TN','Miami, FL','Tampa, FL'],
+  mw: ['Chicago, IL','Detroit, MI','Minneapolis, MN','St. Louis, MO'],
+  sw: ['Dallas, TX','Houston, TX','Phoenix, AZ'],
+  w:  ['Los Angeles, CA','Denver, CO','San Francisco, CA','Seattle, WA','Portland, OR']
+};
+const OEMS = ['OEM A','OEM B','OEM C','OEM D','OEM E','OEM F','OEM G','OEM H','OEM I','OEM J'];
+const PRODUCTS = ['Product A','Product B','Product C','Product D','Product E','Product F'];
+const STATUSES = ['Whitespace','Upsell','At-Risk','Active'];
+const MANAGING_ENTITIES = ['Managing Entity A','Managing Entity B','Managing Entity C','Managing Entity D','Managing Entity E','Managing Entity F','Managing Entity G','Managing Entity H','Managing Entity I','Managing Entity J','Managing Entity K','Managing Entity L','Managing Entity M','Managing Entity N','Managing Entity O','Managing Entity P','Managing Entity Q','Managing Entity R','Managing Entity S','Managing Entity T'];
 
 function rng(seed) {
-  let s = seed;
-  return function() { s = (s * 1664525 + 1013904223) & 0xFFFFFFFF; return (s >>> 0) / 4294967296; };
+  let s = seed >>> 0;
+  return function() { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
 }
 
-function genDealer(i) {
+function productTier(n) { return n <= 1 ? 'Core' : n <= 3 ? 'Add-On' : 'Bundle'; }
+
+function genClient(i) {
   const r = rng(i * 7919 + 31337);
-  const prefix = DEALER_PREFIXES[Math.floor(r() * DEALER_PREFIXES.length)];
-  const suffix = DEALER_SUFFIX[Math.floor(r() * DEALER_SUFFIX.length)];
-  const market = MARKETS[Math.floor(r() * MARKETS.length)];
-  const oem = OEMS[Math.floor(r() * OEMS.length)];
-  const tier = r() < 0.25 ? 'Tier 1' : r() < 0.6 ? 'Tier 2' : 'Tier 3';
-  const numProducts = Math.floor(r() * 4);
+  const entity  = MANAGING_ENTITIES[Math.floor(r() * MANAGING_ENTITIES.length)];
+  const market  = MARKETS[Math.floor(r() * MARKETS.length)];
+  const oem     = OEMS[Math.floor(r() * OEMS.length)];
+  const size    = r() < 0.25 ? 'Tier 1' : r() < 0.65 ? 'Tier 2' : 'Tier 3';
+  const numProd = Math.floor(r() * (PRODUCTS.length + 1));
   const shuffled = [...PRODUCTS].sort(() => r() - 0.5);
-  const activeProducts = shuffled.slice(0, numProducts);
-  const score = Math.floor(r() * 50 + 50);
-  const arr = Math.floor(r() * 45 + 5) * 1000;
-  const status = STATUSES[Math.floor(r() * STATUSES.length)];
-  return { id: i, name: `${prefix} ${oem} ${suffix}`, market, oem, tier, activeProducts, score, arr, status };
+  const activeProducts = shuffled.slice(0, numProd);
+  const score   = Math.floor(r() * 51 + 50);
+  const arr     = Math.floor(r() * 45 + 5) * 1000;
+  const status  = STATUSES[Math.floor(r() * STATUSES.length)];
+  const tier    = productTier(numProd);
+  const clientNum = String(i).padStart(4,'0');
+  return { id: i, name: `Primary Client ${clientNum}`, entity, market, oem, size, activeProducts, score, arr, status, tier };
 }
 
-const ALL_DEALERS = Array.from({length: 6240}, (_, i) => genDealer(i + 1));
+const ALL_CLIENTS = Array.from({length: 6240}, (_, i) => genClient(i + 1));
 
-// ── Render table ──────────────────────────────────────────
-function renderTable(data) {
-  const tbody = document.getElementById('dealerTbody');
-  const shown = data.slice(0, 50);
-  document.getElementById('tableCount').textContent = `Showing ${shown.length} of ${data.length.toLocaleString()} open opportunities`;
-  tbody.innerHTML = shown.map(d => {
-    const dots = PRODUCTS.map(p => `<div class="dot ${d.activeProducts.includes(p) ? 'dot-on' : 'dot-off'}" title="${p}"></div>`).join('');
-    const scoreColor = d.score >= 80 ? 'var(--positive)' : d.score >= 60 ? 'var(--warning)' : 'var(--danger)';
-    const pillClass = d.status === 'Whitespace' ? 'pill-blue' : d.status === 'Upsell' ? 'pill-green' : d.status === 'At-Risk' ? 'pill-red' : 'pill-amber';
-    return `<tr>
-      <td><strong>${d.name}</strong></td>
-      <td>${d.market}</td>
-      <td>${d.oem}</td>
-      <td><span class="pill ${d.tier === 'Tier 1' ? 'pill-blue' : d.tier === 'Tier 2' ? 'pill-gray' : 'pill-gray'}">${d.tier}</span></td>
-      <td><div class="dot-row">${dots}</div></td>
-      <td class="num">
-        <div class="score-bar">
-          <div class="bar-track"><div class="bar-fill" style="width:${d.score}%;background:${scoreColor}"></div></div>
-          <span>${d.score}</span>
-        </div>
-      </td>
-      <td class="num">$${(d.arr / 1000).toFixed(0)}K</td>
-      <td><span class="pill ${pillClass}">${d.status}</span></td>
-    </tr>`;
-  }).join('');
+// ── State ─────────────────────────────────────────────────────
+let currentTab = 'overview';
+let sortKey = 'score', sortDir = -1;
+
+// ── Filtering ─────────────────────────────────────────────────
+function getFilters() {
+  const active = (grp) => [...document.querySelectorAll(`.fchip.active[data-filter="${grp}"]`)].map(el => el.dataset.val);
+  return {
+    tiers:    active('tier'),
+    sizes:    active('size'),
+    statuses: active('status'),
+    oems:     active('oem'),
+    minScore: parseInt(document.getElementById('scoreRange').value, 10),
+    region:   document.getElementById('regionSel').value
+  };
 }
 
-// ── Render charts ──────────────────────────────────────────
-function renderCharts() {
-  const marketData = {};
-  ALL_DEALERS.forEach(d => { marketData[d.market] = (marketData[d.market] || 0) + 1; });
-  const topMarkets = Object.entries(marketData).sort((a,b) => b[1]-a[1]).slice(0, 8);
-  const maxM = topMarkets[0][1];
-  document.getElementById('marketChart').innerHTML = topMarkets.map(([m, v]) =>
-    `<div class="bc-row">
-      <div class="bc-label" title="${m}">${m.split(',')[0]}</div>
-      <div class="bc-track"><div class="bc-bar" style="width:${Math.round(v/maxM*100)}%;background:var(--accent)">${v}</div></div>
-      <div class="bc-val">${v}</div>
-    </div>`
-  ).join('');
+function filterClients(extra) {
+  const f = getFilters();
+  return ALL_CLIENTS.filter(d => {
+    if (!f.tiers.includes(d.tier)) return false;
+    if (!f.sizes.includes(d.size)) return false;
+    if (!f.oems.includes(d.oem)) return false;
+    if (d.score < f.minScore) return false;
+    if (f.region !== 'all' && !(REGION_MAP[f.region] || []).includes(d.market)) return false;
+    const statuses = extra ? extra : f.statuses;
+    if (!statuses.includes(d.status)) return false;
+    return true;
+  });
+}
+
+function applyFilters() {
+  if (currentTab === 'overview') renderOverview();
+  else if (currentTab === 'coverage') renderCoverage();
+  else if (currentTab === 'opps') renderOpps();
+  else if (currentTab === 'upsell') renderUpsell();
+  updateBadges();
+}
+
+function updateBadges() {
+  const all  = filterClients(['Active','At-Risk','Whitespace','Upsell']);
+  const opps = filterClients(['Whitespace','Upsell']);
+  const ups  = filterClients(['Upsell']);
+  document.getElementById('badge-overview').textContent = all.length.toLocaleString();
+  document.getElementById('badge-opps').textContent = opps.length.toLocaleString();
+  document.getElementById('badge-upsell').textContent = ups.length.toLocaleString();
+}
+
+// ── Overview ──────────────────────────────────────────────────
+function renderOverview() {
+  const data = filterClients();
+  const active = data.filter(d => d.status === 'Active');
+  const opps   = data.filter(d => d.status === 'Whitespace' || d.status === 'Upsell');
+  const risk   = data.filter(d => d.status === 'At-Risk');
+  const upsell = data.filter(d => d.status === 'Upsell');
+  const totalArr = opps.reduce((s,d) => s + d.arr, 0);
+  const avgScore = upsell.length ? Math.round(upsell.reduce((s,d) => s + d.score, 0) / upsell.length) : '—';
+
+  document.getElementById('kpi-total').textContent = data.length.toLocaleString();
+  document.getElementById('kpi-active').textContent = active.length.toLocaleString();
+  document.getElementById('kpi-active-sub').textContent = data.length ? `${Math.round(active.length/data.length*100)}% penetration` : '—';
+  document.getElementById('kpi-opps').textContent = opps.length.toLocaleString();
+  document.getElementById('kpi-opps-sub').textContent = `$${(totalArr/1e6).toFixed(1)}M est. ARR`;
+  document.getElementById('kpi-risk').textContent = risk.length.toLocaleString();
+  document.getElementById('kpi-risk-sub').textContent = data.length ? `${(risk.length/data.length*100).toFixed(1)}% of base` : '—';
+  document.getElementById('kpi-upsell').textContent = upsell.length.toLocaleString();
+  document.getElementById('kpi-upsell-score').textContent = avgScore;
+
+  renderCharts(data);
+  renderTable(data);
+}
+
+function renderCharts(data) {
+  const mktMap = {};
+  data.forEach(d => { mktMap[d.market] = (mktMap[d.market] || 0) + 1; });
+  const top = Object.entries(mktMap).sort((a,b) => b[1]-a[1]).slice(0,8);
+  const maxM = top[0]?.[1] || 1;
+  document.getElementById('marketChart').innerHTML = top.map(([m,v]) =>
+    `<div class="bc-row"><div class="bc-label" title="${m}">${m.split(',')[0]}</div>
+     <div class="bc-track"><div class="bc-bar" style="width:${Math.round(v/maxM*100)}%;background:var(--accent)">${v}</div></div>
+     <div class="bc-val">${v}</div></div>`).join('');
 
   const prodData = PRODUCTS.map(p => ({
     name: p,
-    pct: Math.round(ALL_DEALERS.filter(d => d.activeProducts.includes(p)).length / ALL_DEALERS.length * 100)
+    pct: data.length ? Math.round(data.filter(d => d.activeProducts.includes(p)).length / data.length * 100) : 0
   })).sort((a,b) => b.pct - a.pct);
-  document.getElementById('productChart').innerHTML = prodData.map(({name, pct}) =>
-    `<div class="bc-row">
-      <div class="bc-label">${name}</div>
-      <div class="bc-track"><div class="bc-bar" style="width:${pct}%;background:var(--info)">${pct}%</div></div>
-      <div class="bc-val">${pct}%</div>
-    </div>`
-  ).join('');
+  document.getElementById('productChart').innerHTML = prodData.map(({name,pct}) =>
+    `<div class="bc-row"><div class="bc-label">${name}</div>
+     <div class="bc-track"><div class="bc-bar" style="width:${pct}%;background:var(--info)">${pct}%</div></div>
+     <div class="bc-val">${pct}%</div></div>`).join('');
 }
 
-// ── Tab switching ──────────────────────────────────────────
+function renderTable(data) {
+  const sorted = [...data].sort((a,b) => {
+    const av = sortKey === 'arr' ? a[sortKey] : String(a[sortKey] ?? '');
+    const bv = sortKey === 'arr' ? b[sortKey] : String(b[sortKey] ?? '');
+    return (av > bv ? 1 : av < bv ? -1 : 0) * sortDir;
+  });
+  const shown = sorted.slice(0, 50);
+  document.getElementById('tableCount').textContent = `Showing ${shown.length} of ${data.length.toLocaleString()} clients`;
+  document.getElementById('dealerTbody').innerHTML = shown.map(d => clientRow(d, true)).join('');
+}
+
+// ── Coverage Analysis ─────────────────────────────────────────
+function renderCoverage() {
+  const data = filterClients(['Active','At-Risk','Whitespace','Upsell']);
+  const zero = data.filter(d => d.activeProducts.length === 0);
+  const full = data.filter(d => d.activeProducts.length >= 4);
+  const avgProd = data.length ? (data.reduce((s,d) => s + d.activeProducts.length, 0) / data.length).toFixed(1) : '—';
+  const wsArr = data.filter(d => d.status === 'Whitespace').reduce((s,d) => s + d.arr, 0);
+
+  document.getElementById('cov-kpi-total').textContent = data.length.toLocaleString();
+  document.getElementById('cov-kpi-avg').textContent = avgProd;
+  document.getElementById('cov-kpi-zero').textContent = zero.length.toLocaleString();
+  document.getElementById('cov-kpi-full').textContent = full.length.toLocaleString();
+  document.getElementById('cov-kpi-arr').textContent = `$${(wsArr/1e6).toFixed(1)}M`;
+
+  const cols = PRODUCTS.length;
+  const gridStyle = `grid-template-columns: 90px repeat(${cols}, 1fr)`;
+  let html = `<div class="coverage-grid">`;
+  html += `<div class="cov-row" style="${gridStyle}">`;
+  html += `<div class="cov-cell cov-header">OEM</div>`;
+  PRODUCTS.forEach(p => { html += `<div class="cov-cell cov-header" title="${p}">${p}</div>`; });
+  html += `</div>`;
+  OEMS.forEach(oem => {
+    const group = data.filter(d => d.oem === oem);
+    if (!group.length) return;
+    html += `<div class="cov-row" style="${gridStyle}">`;
+    html += `<div class="cov-cell" style="font-weight:600;font-size:11px;">${oem}</div>`;
+    PRODUCTS.forEach(p => {
+      const pct = Math.round(group.filter(d => d.activeProducts.includes(p)).length / group.length * 100);
+      const cls = pct >= 60 ? 'cov-high' : pct >= 30 ? 'cov-mid' : 'cov-low';
+      html += `<div class="cov-cell"><span class="cov-pct ${cls}">${pct}%</span></div>`;
+    });
+    html += `</div>`;
+  });
+  html += `</div>`;
+  document.getElementById('coverageGrid').innerHTML = html;
+}
+
+// ── Open Opportunities ────────────────────────────────────────
+function renderOpps() {
+  const data = filterClients(['Whitespace','Upsell']);
+  const totalArr = data.reduce((s,d) => s + d.arr, 0);
+  const avgScore = data.length ? Math.round(data.reduce((s,d) => s + d.score, 0) / data.length) : '—';
+  const ws = data.filter(d => d.status === 'Whitespace');
+  const us = data.filter(d => d.status === 'Upsell');
+
+  document.getElementById('opp-kpi-count').textContent = data.length.toLocaleString();
+  document.getElementById('opp-kpi-arr').textContent = `$${(totalArr/1e6).toFixed(1)}M`;
+  document.getElementById('opp-kpi-score').textContent = avgScore;
+  document.getElementById('opp-kpi-ws').textContent = ws.length.toLocaleString();
+  document.getElementById('opp-kpi-us').textContent = us.length.toLocaleString();
+
+  const shown = [...data].sort((a,b) => b.score - a.score).slice(0,50);
+  document.getElementById('oppsCount').textContent = `Showing ${shown.length} of ${data.length.toLocaleString()} opportunities`;
+  document.getElementById('oppsTbody').innerHTML = shown.map(d => clientRow(d, true)).join('');
+}
+
+// ── Upsell Targets ────────────────────────────────────────────
+function renderUpsell() {
+  const data = filterClients(['Upsell']);
+  const totalArr = data.reduce((s,d) => s + d.arr, 0);
+  const avgScore = data.length ? Math.round(data.reduce((s,d) => s + d.score, 0) / data.length) : '—';
+  const high = data.filter(d => d.score >= 80);
+  const avgProd = data.length ? (data.reduce((s,d) => s + d.activeProducts.length, 0) / data.length).toFixed(1) : '—';
+
+  document.getElementById('up-kpi-count').textContent = data.length.toLocaleString();
+  document.getElementById('up-kpi-arr').textContent = `$${(totalArr/1e6).toFixed(1)}M`;
+  document.getElementById('up-kpi-score').textContent = avgScore;
+  document.getElementById('up-kpi-high').textContent = high.length.toLocaleString();
+  document.getElementById('up-kpi-prod').textContent = avgProd;
+
+  const oemMap = {}, mktMap = {};
+  data.forEach(d => {
+    oemMap[d.oem] = (oemMap[d.oem] || 0) + 1;
+    mktMap[d.market] = (mktMap[d.market] || 0) + 1;
+  });
+  const topOem = Object.entries(oemMap).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const topMkt = Object.entries(mktMap).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const mo = topOem[0]?.[1] || 1, mm = topMkt[0]?.[1] || 1;
+  document.getElementById('upsellOemChart').innerHTML = topOem.map(([n,v]) =>
+    `<div class="bc-row"><div class="bc-label">${n}</div>
+     <div class="bc-track"><div class="bc-bar" style="width:${Math.round(v/mo*100)}%;background:var(--info)">${v}</div></div>
+     <div class="bc-val">${v}</div></div>`).join('');
+  document.getElementById('upsellMktChart').innerHTML = topMkt.map(([n,v]) =>
+    `<div class="bc-row"><div class="bc-label" title="${n}">${n.split(',')[0]}</div>
+     <div class="bc-track"><div class="bc-bar" style="width:${Math.round(v/mm*100)}%;background:var(--accent)">${v}</div></div>
+     <div class="bc-val">${v}</div></div>`).join('');
+
+  const shown = [...data].sort((a,b) => b.score - a.score).slice(0,50);
+  document.getElementById('upsellCount').textContent = `Showing ${shown.length} of ${data.length.toLocaleString()} upsell targets`;
+  document.getElementById('upsellTbody').innerHTML = shown.map(d => clientRow(d, false)).join('');
+}
+
+// ── Row renderer ──────────────────────────────────────────────
+function clientRow(d, showStatus) {
+  const dots = PRODUCTS.map(p =>
+    `<div class="dot ${d.activeProducts.includes(p) ? 'dot-on' : 'dot-off'}" title="${p}"></div>`).join('');
+  const scoreColor = d.score >= 80 ? 'var(--positive)' : d.score >= 60 ? 'var(--warning)' : 'var(--danger)';
+  const pillCls = d.status === 'Whitespace' ? 'pill-blue' : d.status === 'Upsell' ? 'pill-green' : d.status === 'At-Risk' ? 'pill-red' : 'pill-gray';
+  return `<tr>
+    <td><strong>${d.name}</strong></td>
+    <td style="color:var(--text-dim)">${d.entity}</td>
+    <td>${d.market}</td>
+    <td>${d.oem}</td>
+    <td><span class="pill pill-gray">${d.size}</span></td>
+    <td><div class="dot-row">${dots}</div></td>
+    <td class="num">
+      <div class="score-bar">
+        <div class="bar-track"><div class="bar-fill" style="width:${d.score}%;background:${scoreColor}"></div></div>
+        <span>${d.score}</span>
+      </div>
+    </td>
+    <td class="num">$${(d.arr/1000).toFixed(0)}K</td>
+    ${showStatus ? `<td><span class="pill ${pillCls}">${d.status}</span></td>` : ''}
+  </tr>`;
+}
+
+// ── Tab switching ─────────────────────────────────────────────
 function switchTab(btn, tab) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + tab).classList.add('active');
+  currentTab = tab;
+  applyFilters();
 }
 
-// ── Chip filter toggle ─────────────────────────────────────
-function toggleChip(el) { el.classList.toggle('active'); }
+// ── Chip toggle ───────────────────────────────────────────────
+function toggleChip(el) {
+  el.classList.toggle('active');
+  applyFilters();
+}
 
-// ── Sort ───────────────────────────────────────────────────
-let sortKey = 'score', sortDir = -1;
+// ── Sort ──────────────────────────────────────────────────────
 function sortTable(key) {
   if (sortKey === key) { sortDir *= -1; } else { sortKey = key; sortDir = -1; }
-  const sorted = [...ALL_DEALERS].sort((a, b) => {
-    const av = key === 'arr' ? a[key] : String(a[key]);
-    const bv = key === 'arr' ? b[key] : String(b[key]);
-    return (av > bv ? 1 : av < bv ? -1 : 0) * sortDir;
-  });
-  renderTable(sorted);
+  const data = filterClients();
+  renderTable(data);
 }
 
-// ── Export ─────────────────────────────────────────────────
+// ── Export ────────────────────────────────────────────────────
 function exportCSV() {
-  const headers = 'Dealer Name,Market,OEM,Tier,Products Active,Opp Score,Est ARR,Status';
-  const rows = ALL_DEALERS.slice(0, 200).map(d =>
-    `"${d.name}","${d.market}","${d.oem}","${d.tier}","${d.activeProducts.length}","${d.score}","${d.arr}","${d.status}"`
-  );
+  const data = filterClients();
+  const headers = 'Primary Client,Managing Entity,Market,OEM,Size,Products Active,Opp Score,Est ARR,Status';
+  const rows = data.slice(0,500).map(d =>
+    `"${d.name}","${d.entity}","${d.market}","${d.oem}","${d.size}","${d.activeProducts.length}","${d.score}","${d.arr}","${d.status}"`);
   const blob = new Blob([headers + '\n' + rows.join('\n')], {type:'text/csv'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = 'market_opportunity_export.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
 
-// ── Init ───────────────────────────────────────────────────
-renderCharts();
-renderTable(ALL_DEALERS);
+// ── Init ──────────────────────────────────────────────────────
+applyFilters();
 </script>
 </body>
 </html>
-
