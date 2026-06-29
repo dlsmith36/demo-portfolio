@@ -3087,17 +3087,17 @@ table.dt tr:hover td { background: var(--bg-card); }
 
   <nav class="product-tabs" id="productTabs">
     <button class="tab active" data-product="CL">
-      <span class="tab-name"><em>Collision</em>Link</span>
+      <span class="tab-name">Product A</span>
       <span class="tab-meta" data-count-for="CL">— records</span>
       <span class="tab-dot"></span>
     </button>
     <button class="tab" data-product="RL">
-      <span class="tab-name"><em>Repair</em>Link</span>
+      <span class="tab-name">Product B</span>
       <span class="tab-meta" data-count-for="RL">— records</span>
       <span class="tab-dot"></span>
     </button>
     <button class="tab" data-product="Trax">
-      <span class="tab-name"><em>Trax</em>Collision</span>
+      <span class="tab-name">Product C</span>
       <span class="tab-meta" data-count-for="Trax">— records</span>
       <span class="tab-dot"></span>
     </button>
@@ -3298,8 +3298,8 @@ table.dt tr:hover td { background: var(--bg-card); }
         <circle cx="11" cy="11" r="7"/>
         <path d="M20 20l-4-4"/>
       </svg>
-      <div class="viewport-empty-title">Find your <em>dealer</em></div>
-      <div class="viewport-empty-body">Search for a dealer by dealer name, ID, or ZIP — or zoom in to explore a region. Dots show every record's real location; zoom to metro level to click individual ones.</div>
+      <div class="viewport-empty-title">Find your <em>primary client</em></div>
+      <div class="viewport-empty-body">Search for a primary client by name, ID, or ZIP — or zoom in to explore a region. Dots show every record's real location; zoom to metro level to click individual ones.</div>
       <div class="viewport-empty-actions">
         <button class="viewport-empty-btn primary" id="emptyStateSearchBtn">Focus search ⌘K</button>
         <button class="viewport-empty-btn" id="emptyStateFitBtn">Fit all data</button>
@@ -3376,22 +3376,22 @@ table.dt tr:hover td { background: var(--bg-card); }
 /* ============================================================ */
 const PRODUCT_CONFIG = {
   CL: {
-    label: 'ProLink',
-    longLabel: 'Sales Performance Map',
+    label: 'Product A',
+    longLabel: 'Product A Performance Map',
     shortLabel: 'CL',
     accent: '#DE4F38',   // Flame Red
     layers: ['dealersOnCL', 'dealersNotOnCL', 'shopsOnCL']
   },
   RL: {
-    label: 'ServiceLink',
-    longLabel: 'ServiceLink Performance Map',
+    label: 'Product B',
+    longLabel: 'Product B Performance Map',
     shortLabel: 'RL',
     accent: '#003C71',   // Brand Blue
     layers: ['dealersOnRL', 'dealersNotOnRL', 'shopsOnRL']
   },
   Trax: {
-    label: 'TraxCollision',
-    longLabel: 'TraxCollision Performance Map',
+    label: 'Product C',
+    longLabel: 'Product C Performance Map',
     shortLabel: 'Trax',
     accent: '#12B3A8',   // Teal
     layers: ['activeTraxDealers', 'activeTraxShops']
@@ -3405,12 +3405,12 @@ const LAYER_CONFIG = {
   /* ----------------------- ProLink ----------------------- */
   dealersOnCL: {
     product: 'CL',
-    label: 'Dealers on CL',
+    label: 'Primary Clients — Enrolled',
     shape: 'circle',
     colorBase: '#DE4F38',          // Flame Red
     colorDeep: '#5A1610',
     classifyField: 'CL Sales',
-    classifyLabel: 'CL Sales',
+    classifyLabel: 'Sales',
     nameField: 'Dealer Name',
     idField: 'Dealer ID',
     latFields: ['latitude'],
@@ -3436,7 +3436,7 @@ const LAYER_CONFIG = {
     colorBase: '#2886EC',          // Electric Blue
     colorDeep: '#003C71',          // Brand Blue deep
     classifyField: 'RL Shop Cost Invoiced YTD',
-    classifyLabel: 'RL Shop Cost Invoiced YTD',
+    classifyLabel: 'Sales',
     nameField: 'Account Name',
     idField: 'Company ID',
     latFields: ['Address 1: Latitude', 'latitude'],
@@ -3456,7 +3456,7 @@ const LAYER_CONFIG = {
     ],
     filterCats: [
       { field: 'OEM', label: 'OEM' },
-      { field: 'AE NAME', label: 'AE' },
+      { field: 'AE NAME', label: 'Rep' },
       { field: 'SDR Name', label: 'SDR' },
       { field: 'State_Province', label: 'State' },
       { field: 'Market Class', label: 'Market Class' }
@@ -3471,7 +3471,7 @@ const LAYER_CONFIG = {
     colorBase: '#42C85B',          // Spring Green
     colorDeep: '#0E4E1A',
     classifyField: 'CL Sales',
-    classifyLabel: 'CL Sales',
+    classifyLabel: 'Sales',
     nameField: 'Shop Name',
     idField: 'Shop ID',
     latFields: ['latitude'],
@@ -3495,12 +3495,12 @@ const LAYER_CONFIG = {
   /* ----------------------- RepairLink -------------------------- */
   dealersOnRL: {
     product: 'RL',
-    label: 'Dealers on RL',
+    label: 'Primary Clients — Enrolled',
     shape: 'circle',
     colorBase: '#DE4F38',
     colorDeep: '#5A1610',
     classifyField: 'Sales',
-    classifyLabel: 'RL Sales',
+    classifyLabel: 'Sales',
     nameField: 'Dealer Name',
     idField: 'DealerId',
     latFields: ['Latitude'],
@@ -3527,12 +3527,12 @@ const LAYER_CONFIG = {
   },
   dealersNotOnRL: {
     product: 'RL',
-    label: 'Dealers Not on RL',
+    label: 'Primary Clients — Not Enrolled',
     shape: 'star',
     colorBase: '#2886EC',
     colorDeep: '#003C71',
     classifyField: 'CL Shop Cost Invoiced YTD',
-    classifyLabel: 'CL Shop Cost Invoiced YTD',
+    classifyLabel: 'Sales',
     nameField: 'Account Name',
     idField: 'Company ID',
     latFields: ['Address 1: Latitude', 'latitude'],
@@ -3552,7 +3552,7 @@ const LAYER_CONFIG = {
     ],
     filterCats: [
       { field: 'OEM', label: 'OEM' },
-      { field: 'AE NAME', label: 'AE' },
+      { field: 'AE NAME', label: 'Rep' },
       { field: 'SDR Name', label: 'SDR' },
       { field: 'State_Province', label: 'State' },
       { field: 'Market Class', label: 'Market Class' }
@@ -3562,12 +3562,12 @@ const LAYER_CONFIG = {
   },
   shopsOnRL: {
     product: 'RL',
-    label: 'Shops on RL',
+    label: 'Secondary Clients — Enrolled',
     shape: 'triangle',
     colorBase: '#42C85B',
     colorDeep: '#0E4E1A',
     classifyField: 'Sales',
-    classifyLabel: 'RL Sales',
+    classifyLabel: 'Sales',
     nameField: 'Shop Name',
     idField: 'Dealer ID',
     latFields: ['Latitude'],
@@ -3590,7 +3590,7 @@ const LAYER_CONFIG = {
   /* ----------------------- TraxCollision ----------------------- */
   activeTraxDealers: {
     product: 'Trax',
-    label: 'Active Trax Dealers',
+    label: 'Active Primary Clients',
     shape: 'circle',
     colorBase: '#DE4F38',
     colorDeep: '#5A1610',
@@ -3618,7 +3618,7 @@ const LAYER_CONFIG = {
   },
   activeTraxShops: {
     product: 'Trax',
-    label: 'Active Trax Shops',
+    label: 'Active Secondary Clients',
     shape: 'triangle',
     colorBase: '#42C85B',
     colorDeep: '#0E4E1A',
@@ -4642,8 +4642,8 @@ function renderPopup(item, layerKey) {
     const dealerCode = String(getField(row, 'Dealer Code') || getField(row, 'ops_dealer_code') || '').trim();
     const owned = (dealerCode && state.dealerProductMap[dealerCode]) ? state.dealerProductMap[dealerCode] : new Set();
     const badges = [
-      { key: 'CL',   label: 'ProLink', cls: 'on-cl' },
-      { key: 'RL',   label: 'ServiceLink',    cls: 'on-rl' },
+      { key: 'CL',   label: 'Product A', cls: 'on-cl' },
+      { key: 'RL',   label: 'Product B',    cls: 'on-rl' },
       { key: 'Trax', label: 'Trax',          cls: 'on-trx' }
     ].map(p => `<span class="prod-badge ${owned.has(p.key) ? p.cls : 'off'}">${p.label}</span>`).join('');
     ownershipHTML = `<div class="prod-ownership" style="padding:8px 16px;">${badges}</div>`;
